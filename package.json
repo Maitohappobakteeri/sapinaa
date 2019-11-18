@@ -2,7 +2,7 @@
   "name": "sapinaa",
   "version": "1.0.0",
   "description": "RSS Reader",
-  "main": "reader/electron.js",
+  "main": "reader/app.js",
   "scripts": {
     "start": "SAPINAA_DEBUG=1 electron .",
     "test": "echo \"Error: no test specified\" && exit 1"
