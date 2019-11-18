@@ -21,7 +21,7 @@ Vue.mixin({
       get transitionToFeedView() {
         return transitionToFeedView;
       }
-    }
+    };
   }
 });
 
