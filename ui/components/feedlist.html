@@ -1,0 +1,8 @@
+<div>
+  <ul>
+    <li v-for="feed in data">
+      {{feed}}
+      <subfeedlist v-bind:data="data"></subfeedlist>
+    </li>
+  </ul>
+</div>
