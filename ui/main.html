@@ -7,8 +7,35 @@
   <body>
     <div id="main">
       <h1>{{ thing }}!</h1>
-      <feedlist v-bind:data="feeds"></feedlist>
+      <div style="display: flex; flex-direction: row; content-align: center;">
+        <feedlist v-bind:data="viewmodel.feeds"></feedlist>
+        <feed style="flex: 1;" v-bind:data="viewmodel.current"></feed>
+      </div>
     </div>
   </body>
+  <style>
+      html {
+        height: 100%;
+      }
+
+      body {
+        height: 100%;
+      }
+
+      #main {
+        height: 100%;
+      }
+
+      #main div {
+        height: 100%;
+      }
+
+      #main div div {
+        height: 100%;
+        padding: 1em;
+        margin: 1em;
+        border: double;
+      }
+  </style>
   <script type="module" src="main.js"></script>
 </html>
