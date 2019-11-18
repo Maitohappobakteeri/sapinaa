@@ -1,4 +1,5 @@
 import  { Feed } from "./model/feed.js";
+import { cacheFeeds } from "./debug-feed-cache.js"
 
 import { ComponentStrings } from "./views/generated/components.js";
 
@@ -36,3 +37,4 @@ var vapp = new Vue({
 })
 
 feeds[0].setAsCurrent()
+// setTimeout(function() { cacheFeeds(feeds) }, 5000)

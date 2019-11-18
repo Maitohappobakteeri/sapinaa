@@ -1,6 +1,8 @@
 import { parseXML } from "../xml-query.js"
 import { FeedItem } from "./feed-item.js"
 
+import { getCachedResponse } from "../debug-feed-cache.js"
+
 function processRSSResponse(xmlString) {
   let items = parseXML(xmlString)
     .firstWithName("rss")
@@ -20,16 +22,17 @@ class Feed {
       this.items = []
     }
 
-    activate() {
+    async activate() {
       if (this.items.length !== 0) {
         console.log("Items already fetched")
         return;
       }
 
-      fetch(this.url)
-        .then(response => response.text()
-          .then(txt => processRSSResponse(txt)
-            .forEach(title => this.items.push(new FeedItem(title)))))
+      // console.log("Fetching rss feed from " + this.url)
+      // let text = await fetch(this.url).then(response => response.text())
+      let text = getCachedResponse(this.url)
+      processRSSResponse(text)
+        .forEach(title => this.items.push(new FeedItem(title)))
     }
 
     setAsCurrent() {
