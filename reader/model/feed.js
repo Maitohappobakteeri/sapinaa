@@ -1,28 +1,5 @@
-
-var convert = require('xml-js');
-
-function wrapXML(parsedXML) {
-  parsedXML.firstWithName = function(name) {
-    return wrapXML(parsedXML.elements.filter(e => e.name == name)[0])
-  }
-
-  parsedXML.firstWithType = function(type) {
-    return wrapXML(parsedXML.elements.filter(e => e.type == type)[0])
-  }
-
-  parsedXML.elementsWithName = function(name) {
-    return parsedXML.elements
-      .filter(e => e.name == name)
-      .map(e => wrapXML(e))
-  }
-
-  return parsedXML
-}
-
-function parseXML(xml) {
-  let data = JSON.parse(convert.xml2json(xml))
-  return wrapXML(data)
-}
+import { parseXML } from "../xml-query.js"
+import { FeedItem } from "./feed-item.js"
 
 function processRSSResponse(xmlString) {
   let items = parseXML(xmlString)
@@ -34,12 +11,6 @@ function processRSSResponse(xmlString) {
       .firstWithType("text")
       .text)
   return items;
-}
-
-class FeedItem {
-  constructor(headline) {
-    this.headline = headline
-  }
 }
 
 class Feed {

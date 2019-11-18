@@ -1,4 +1,4 @@
-import  { Feed, FeedItem } from "./feed.js";
+import  { Feed } from "./model/feed.js";
 
 import { ComponentStrings } from "./components/generated/components.js";
 
