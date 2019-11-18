@@ -1,7 +1,7 @@
-const { app, BrowserWindow } = require('electron')
+const { app, BrowserWindow } = require('electron');
 
-let win
-let isDebug = process.env.SAPINAA_DEBUG !== undefined
+let win;
+let isDebug = process.env.SAPINAA_DEBUG !== undefined;
 
 function createWindow () {
   win = new BrowserWindow({
@@ -12,29 +12,29 @@ function createWindow () {
       webSecurity: false
     },
     frame: isDebug
-  })
+  });
 
-  win.loadFile('reader/main.html')
+  win.loadFile('reader/main.html');
 
   if (isDebug) {
-    win.webContents.openDevTools()
+    win.webContents.openDevTools();
   }
 
   win.on('closed', () => {
-    win = null
-  })
+    win = null;
+  });
 }
 
-app.on('ready', createWindow)
+app.on('ready', createWindow);
 
 app.on('window-all-closed', () => {
   if (process.platform !== 'darwin') {
-    app.quit()
+    app.quit();
   }
-})
+});
 
 app.on('activate', () => {
   if (win === null) {
-    createWindow()
+    createWindow();
   }
-})
+});

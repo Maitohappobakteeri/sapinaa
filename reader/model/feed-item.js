@@ -1,7 +1,8 @@
+
 class FeedItem {
   constructor(headline) {
-    this.headline = headline
+    this.headline = headline;
   }
 }
 
-export { FeedItem }
+export { FeedItem };

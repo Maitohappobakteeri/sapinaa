@@ -1,40 +1,29 @@
-import  { Feed } from "./model/feed.js";
-import { cacheFeeds } from "./debug-feed-cache.js"
+import  { loadTestFeeds } from "./model/feeds.js";
+import { FeedListPresenter } from "./presenters/feed-list-presenter.js";
+import { AppPresenter } from "./presenters/app-presenter.js";
+import { cacheFeeds } from "./debug-feed-cache.js";
 
 import { ComponentStrings } from "./views/generated/components.js";
 
-var Vue = require('vue/dist/vue.js')
+var Vue = require('vue/dist/vue.js');
 
 ComponentStrings.forEach(c => {
   Vue.component(c.name, {
     props: c.props,
     template: c.template
-  })
+  });
 });
 
-var fs = require('fs');
-var feeds = JSON.parse(fs.readFileSync('test/testfeeds.json', 'utf8'))
-  .map(f => new Feed(f.title, f.url));
-
-let viewmodel = {
-  feeds: feeds,
-  current: undefined
-}
-
-feeds.forEach(f => {
-  f.setAsCurrent = function() {
-    viewmodel.current = f
-    f.activate()
-  }
-})
+let feeds = loadTestFeeds("test/testfeeds.json");
+let presenter = new AppPresenter(
+  new FeedListPresenter(feeds),
+  feeds.feeds[0]
+);
 
 var vapp = new Vue({
   el: '#main',
   data: {
     thing: "Moikka!",
-    viewmodel: viewmodel
+    presenter: presenter
   }
-})
-
-feeds[0].setAsCurrent()
-// setTimeout(function() { cacheFeeds(feeds) }, 5000)
+});

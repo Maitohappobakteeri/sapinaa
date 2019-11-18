@@ -8,8 +8,8 @@
     <div id="main">
       <h1>{{ thing }}!</h1>
       <div style="display: flex; flex-direction: row; content-align: center;">
-        <feedlist v-bind:data="viewmodel.feeds"></feedlist>
-        <feed style="flex: 1;" v-bind:data="viewmodel.current"></feed>
+        <feedlist v-bind:data="presenter.feeds"></feedlist>
+        <feed style="flex: 1;" v-bind:data="presenter.current"></feed>
       </div>
     </div>
   </body>
