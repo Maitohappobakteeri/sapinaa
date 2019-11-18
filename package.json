@@ -12,5 +12,19 @@
   "dependencies": {
     "vue": "^2.6.10",
     "xml-js": "^1.6.11"
+  },
+  "eslintConfig": {
+      "env": {
+          "browser": true,
+          "node": true,
+          "es6": true
+      },
+      "parserOptions": {
+        "sourceType": "module",
+        "ecmaVersion": 8
+      },
+      "rules": {
+        "semi": [1, "always"]
+      }
   }
 }
