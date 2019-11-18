@@ -10,6 +10,7 @@ import glob
 import datetime
 import re
 
+# Basic structure for the JS-file
 outFormat = """
 //Generated {time}
 
@@ -25,14 +26,22 @@ if len(sys.argv) != 2:
 
 componentPath = sys.argv[1]
 outFilename = f"{componentPath}/generated/components.js"
+lastGenerated = os.path.getmtime(outFilename)
 
 print(f"Searching for HTML files from {componentPath}")
 componentFiles = glob.glob(componentPath + '/**/*.html', recursive=True)
 print("\nFound files: ")
 print(*componentFiles, sep="\n")
 
+# Exit if no files have been changed since last run
+if all((os.path.getmtime(c)) < lastGenerated for c in componentFiles):
+    print("No files changed")
+    sys.exit(0)
+
 print(f"\nWriting JavaScript to {outFilename}")
 with open(outFilename, "w") as outFile:
+
+    # Compose template data
     componentList = []
     for compFilename in componentFiles:
         with open(compFilename, "r") as compFile:
@@ -42,6 +51,7 @@ with open(outFilename, "w") as outFile:
                 "template": re.sub(r"\n", "", "".join(compFile.readlines()))
             })
 
+    # Print final JS
     print(outFormat.format(
             time=datetime.datetime.now().isoformat(),
             templates=",".join(json.dumps(c) for c in componentList)),
