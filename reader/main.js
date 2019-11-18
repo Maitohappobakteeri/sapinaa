@@ -1,4 +1,4 @@
-import  { loadTestFeeds } from "./model/feeds.js";
+import  { loadTestFeeds } from "./models/feeds.js";
 import { FeedListPresenter } from "./presenters/feed-list-presenter.js";
 import { AppPresenter } from "./presenters/app-presenter.js";
 import { cacheFeeds } from "./debug-feed-cache.js";
