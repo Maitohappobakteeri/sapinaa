@@ -1,6 +1,6 @@
 import  { Feed } from "./model/feed.js";
 
-import { ComponentStrings } from "./components/generated/components.js";
+import { ComponentStrings } from "./views/generated/components.js";
 
 var Vue = require('vue/dist/vue.js')
 
