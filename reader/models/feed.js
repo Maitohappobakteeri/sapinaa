@@ -18,17 +18,27 @@ class Feed {
       // console.log("Fetching rss feed from " + this.url)
       // let text = await fetch(this.url).then(response => response.text())
       let text = getCachedResponse(this.url);
-      processRSSResponse(text)
-        .forEach(title => this.items.push(new FeedItem(title)));
+      parseRSSResponse(text)
+        .forEach(item => this.items.push(item));
     }
 }
 
-function processRSSResponse(xmlString) {
+function parseRSSResponse(xmlString) {
   return parseXML(xmlString)
     .firstWithName("rss")
     .firstWithName("channel")
     .elementsWithName("item")
-    .map(e => e.firstWithName("title"));
+    .map(e => parseFeedItem(e));
+}
+
+function parseFeedItem(e) {
+  let item = new FeedItem();
+  item.headline = e.firstWithName("title").firstWithType("text").text;
+  item.description = e.firstWithName("description").firstWithType("text").text;
+  item.link = e.firstWithName("link").firstWithType("text").text;
+  // item.content = e.firstWithName("content")
+  //                 .firstWithType("cdata").cdata;
+  return item;
 }
 
 export { Feed, FeedItem };

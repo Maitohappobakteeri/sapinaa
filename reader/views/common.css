@@ -10,11 +10,20 @@ body {
   height: 100%;
 }
 
-#main div {
-  height: 100%;
+#mainContent {
+  display: flex;
+  flex-direction: row;
+  content-align: center;
 }
 
-#main div div {
+#mainContent > div {
+  height: 100%;
+  padding: 1em;
+  margin: 1em;
+  border: double;
+}
+
+#feedlist div {
   height: 100%;
   padding: 1em;
   margin: 1em;
