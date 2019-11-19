@@ -1,5 +1,5 @@
 import { FeedItem } from "./feed-item.js";
-import { getCachedResponse } from "../debug-feed-cache.js";
+import { getCachedResponse } from "./debug-feed-cache.js";
 import { parseXML } from "../communication/xml-query.js";
 
 class Feed {
