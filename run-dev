@@ -4,12 +4,13 @@ set -euxo pipefail
 
 export SAPINAA_DEBUG=1
 
+# Create debug data if it doesn't exist
 if [[ ! -f "./test/testfeedsdata.json" ]];
 then
     npm run cache-requests
 fi
 
-# Bundle
+# Bundle client
 (
   cd reader
   parcel build main.html --public-url ./
