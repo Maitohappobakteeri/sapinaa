@@ -1,7 +1,7 @@
 import * as Project from "./project.js";
 import  { loadTestFeeds } from "./models/feeds.js";
-import { FeedListVM } from "./viewmodels/feed-list-vm.js";
-import { AppVM } from "./viewmodels/app-vm.js";
+import { FeedListUI } from "./ui/feed-list-ui.js";
+import { AppUI } from "./ui/app-ui.js";
 import { cacheFeeds } from "./debug-feed-cache.js";
 import { Transitions } from "./transitions.js";
 import { ComponentStrings } from "./views/generated/components.js";
@@ -29,16 +29,16 @@ Vue.mixin({
 });
 
 let feeds = loadTestFeeds("test/testfeeds.json");
-let vm = new AppVM(
-  new FeedListVM(feeds),
+let ui = new AppUI(
+  new FeedListUI(feeds),
   feeds.feeds[0]
 );
 
 var vapp = new Vue({
   el: '#main',
   data: {
-    vm: vm
+    app: ui
   }
 });
 
-vm.registerEvents();
+ui.registerEvents();

@@ -1,6 +1,6 @@
 import { TransitionEmitter } from "../transitions.js";
 
-export class AppVM {
+export class AppUI {
   constructor(feedList, current) {
     this.feeds = feedList;
     this.activateFeed(current);

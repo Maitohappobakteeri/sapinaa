@@ -8,8 +8,8 @@
     <div id="main">
       <h1>{{Project.name}}-{{Project.version}}</h1>
       <div style="display: flex; flex-direction: row; content-align: center;">
-        <feedlist v-bind:data="vm.feeds"></feedlist>
-        <feed style="flex: 1;" v-bind:data="vm.current"></feed>
+        <feedlist v-bind:data="app.feeds"></feedlist>
+        <feed style="flex: 1;" v-bind:data="app.current"></feed>
       </div>
     </div>
   </body>
