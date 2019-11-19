@@ -39,11 +39,18 @@ function parseRSSResponse(xmlString) {
 
 function parseFeedItem(e) {
   let item = new FeedItem();
+  
   item.headline = e.firstWithName("title").firstWithType("text").text;
   item.description = e.firstWithName("description").firstWithType("text").text;
   item.link = e.firstWithName("link").firstWithType("text").text;
-  // item.content = e.firstWithName("content")
-  //                 .firstWithType("cdata").cdata;
+  item.content = e.firstWithName("content:encoded")
+                  .firstWithType("cdata").cdata;
+
+  let enclosure = e.firstWithName("enclosure");
+  item.imageURL = enclosure
+    && enclosure.attributes
+    && enclosure.attributes.url;
+
   return item;
 }
 

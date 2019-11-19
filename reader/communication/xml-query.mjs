@@ -7,15 +7,31 @@ function parseXML(xml) {
 }
 
 function wrapXML(xmlObj) {
+  if (xmlObj === undefined) {
+    xmlObj = {};
+  }
+
   xmlObj.firstWithName = function(name) {
+    if (xmlObj.elements === undefined) {
+      return wrapXML(undefined);
+    }
+
     return wrapXML(xmlObj.elements.filter(e => e.name == name)[0]);
   };
 
   xmlObj.firstWithType = function(type) {
+    if (xmlObj.elements === undefined) {
+      return wrapXML(undefined);
+    }
+
     return wrapXML(xmlObj.elements.filter(e => e.type == type)[0]);
   };
 
   xmlObj.elementsWithName = function(name) {
+    if (xmlObj.elements === undefined) {
+      return wrapXML([]);
+    }
+
     return xmlObj.elements
       .filter(e => e.name == name)
       .map(e => wrapXML(e));

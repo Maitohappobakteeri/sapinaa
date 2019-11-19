@@ -1,4 +1,5 @@
 <div v-on:click="Actions.openUrl(data.link)">
   <h2>{{data.headline}}</h2>
   <p>{{data.description}}</p>
+  <div v-html="data.content"></div>
 </div>

@@ -5,6 +5,7 @@ class FeedItem {
     this.description = undefined;
     this.link = undefined;
     this.content = undefined;
+    this.imageURL = undefined;
   }
 }
 
