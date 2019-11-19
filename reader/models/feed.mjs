@@ -1,6 +1,6 @@
-import { FeedItem } from "./feed-item.js";
-import { getCachedResponse } from "./debug-feed-cache.js";
-import { parseXML } from "../communication/xml-query.js";
+import { FeedItem } from "./feed-item.mjs";
+// import { getCachedResponse } from "./debug-feed-cache.mjs";
+import { parseXML } from "../communication/xml-query.mjs";
 
 class Feed {
     constructor(title, url) {
@@ -15,9 +15,9 @@ class Feed {
         return;
       }
 
-      // console.log("Fetching rss feed from " + this.url)
-      // let text = await fetch(this.url).then(response => response.text())
-      let text = getCachedResponse(this.url);
+      console.log("Fetching rss feed from " + this.url);
+      let text = await fetch(this.url).then(response => response.text());
+      // let text = getCachedResponse(this.url);
       parseRSSResponse(text)
         .forEach(item => this.items.push(item));
     }

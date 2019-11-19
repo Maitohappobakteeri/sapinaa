@@ -1,15 +1,15 @@
-import * as Project from "./project.js";
-import { ComponentStrings } from "./views/generated/components.js";
+import * as Project from "./project.mjs";
+import { ComponentStrings } from "./views/generated/components.mjs";
 
-import  { loadTestFeeds } from "./models/feeds.js";
-import { cacheFeeds } from "./models/debug-feed-cache.js";
+import  { loadTestFeeds } from "./models/feeds.mjs";
+// import { cacheFeeds } from "./models/debug-feed-cache.mjs";
 
-import { FeedListUI } from "./ui/feed-list-ui.js";
-import { AppUI } from "./ui/app-ui.js";
-import { Transitions } from "./ui/transitions.js";
+import { FeedListUI } from "./ui/feed-list-ui.mjs";
+import { AppUI } from "./ui/app-ui.mjs";
+import { Transitions } from "./ui/transitions.mjs";
 
-
-var Vue = require('vue/dist/vue.js');
+import "babel-polyfill";
+let Vue = require("vue/dist/vue.js");
 
 ComponentStrings.forEach(c => {
   Vue.component(c.name, {

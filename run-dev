@@ -5,5 +5,11 @@ set -euxo pipefail
 # Generate JS-strings and such from Vue components
 ./scripts/vue-components-to-js.py ./reader/views
 
+# Bundle
+(
+  cd reader
+  parcel build main.html --public-url ./
+)
+
 # Start electron
-exec npm start
+exec npm run dev

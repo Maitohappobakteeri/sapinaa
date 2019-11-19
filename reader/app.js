@@ -14,7 +14,7 @@ function createWindow () {
     frame: isDebug
   });
 
-  win.loadFile('reader/main.html');
+  win.loadFile('reader/dist/main.html');
 
   if (isDebug) {
     win.webContents.openDevTools();

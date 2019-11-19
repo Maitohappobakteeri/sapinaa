@@ -1,4 +1,4 @@
-import { TransitionEmitter } from "./transitions.js";
+import { TransitionEmitter } from "./transitions.mjs";
 
 export class AppUI {
   constructor(feedList, current) {
