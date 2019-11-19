@@ -2,10 +2,10 @@
 class FeedItem {
   constructor() {
     this.headline = "???";
-    this.description = undefined;
-    this.link = undefined;
-    this.content = undefined;
-    this.imageURL = undefined;
+    this.description = "";
+    this.link = "";
+    this.content = "";
+    this.imageURL = "";
   }
 }
 
