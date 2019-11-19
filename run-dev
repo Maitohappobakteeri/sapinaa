@@ -4,6 +4,11 @@ set -euxo pipefail
 
 export SAPINAA_DEBUG=1
 
+if [[ ! -f "./test/testfeedsdata.json" ]];
+then
+    npm run cache-requests
+fi
+
 # Bundle
 (
   cd reader

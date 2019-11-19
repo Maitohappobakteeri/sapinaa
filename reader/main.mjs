@@ -1,5 +1,4 @@
 import * as Project from "./project.mjs";
-import { ComponentStrings } from "./views/generated/components.mjs";
 import components from "./views/**/*.html";
 
 import { loadTestFeeds } from "./models/feeds.mjs";
