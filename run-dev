@@ -1,0 +1,9 @@
+#!/usr/bin/env bash
+
+set -euxo pipefail
+
+# Generate JS-strings and such from Vue components
+./scripts/vue-components-to-js.py ./reader/views
+
+# Start electron
+exec npm start
