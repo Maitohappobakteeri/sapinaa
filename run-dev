@@ -4,9 +4,6 @@ set -euxo pipefail
 
 export SAPINAA_DEBUG=1
 
-# Generate JS-strings and such from Vue components
-./scripts/vue-components-to-js.py ./reader/views
-
 # Bundle
 (
   cd reader
