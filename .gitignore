@@ -3,3 +3,5 @@ generated/
 cache/
 .cache/
 dist/
+
+test/testfeedsdata.json

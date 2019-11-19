@@ -1,7 +1,8 @@
 import * as Project from "./project.mjs";
 import { ComponentStrings } from "./views/generated/components.mjs";
+import components from "./views/**/*.html";
 
-import  { loadTestFeeds } from "./models/feeds.mjs";
+import { loadTestFeeds } from "./models/feeds.mjs";
 // import { cacheFeeds } from "./models/debug-feed-cache.mjs";
 
 import { FeedListUI } from "./ui/feed-list-ui.mjs";
@@ -11,12 +12,14 @@ import { Transitions } from "./ui/transitions.mjs";
 import "babel-polyfill";
 let Vue = require("vue/dist/vue.js");
 
-ComponentStrings.forEach(c => {
-  Vue.component(c.name, {
-    props: c.props,
-    template: c.template
-  });
-});
+for (var comp in components) {
+    if (Object.prototype.hasOwnProperty.call(components, comp)) {
+      Vue.component(comp, {
+        props: ["data"],
+        template: components[comp]
+      });
+    }
+}
 
 Vue.mixin({
   data: function() {
