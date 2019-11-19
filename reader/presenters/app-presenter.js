@@ -1,3 +1,4 @@
+import { TransitionEmitter } from "../transitions.js";
 
 class AppPresenter {
   constructor(feedList, current) {
@@ -8,6 +9,14 @@ class AppPresenter {
   activateFeed(feed) {
     this.current = feed;
     feed.refresh();
+  }
+
+  registerEvents() {
+    TransitionEmitter.on("transition", (target, options) => {
+      if (target ==  "feed") {
+        this.activateFeed(options.feed);
+      }
+    });
   }
 }
 

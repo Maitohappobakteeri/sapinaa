@@ -6,7 +6,7 @@
   </head>
   <body>
     <div id="main">
-      <h1>{{ thing }}!</h1>
+      <h1>{{Project.name}}-{{Project.version}}</h1>
       <div style="display: flex; flex-direction: row; content-align: center;">
         <feedlist v-bind:data="presenter.feeds"></feedlist>
         <feed style="flex: 1;" v-bind:data="presenter.current"></feed>

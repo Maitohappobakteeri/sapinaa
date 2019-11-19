@@ -1,9 +1,9 @@
 const EventEmitter = require('events');
 
-const TransitionEmitter = new EventEmitter();
+export const TransitionEmitter = new EventEmitter();
 
-function transitionToFeedView(feed) {
-  TransitionEmitter.emit("transition", "feed", {feed: feed});
-}
-
-export { TransitionEmitter, transitionToFeedView };
+export const Transitions = {
+  transitionToFeedView: (feed) => {
+    TransitionEmitter.emit("transition", "feed", {feed: feed});
+  }
+};

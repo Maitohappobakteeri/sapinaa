@@ -1,9 +1,9 @@
+import * as Project from "./project.js";
 import  { loadTestFeeds } from "./models/feeds.js";
 import { FeedListPresenter } from "./presenters/feed-list-presenter.js";
 import { AppPresenter } from "./presenters/app-presenter.js";
 import { cacheFeeds } from "./debug-feed-cache.js";
-import { TransitionEmitter, transitionToFeedView } from "./transitions.js";
-
+import { Transitions } from "./transitions.js";
 import { ComponentStrings } from "./views/generated/components.js";
 
 var Vue = require('vue/dist/vue.js');
@@ -18,8 +18,11 @@ ComponentStrings.forEach(c => {
 Vue.mixin({
   data: function() {
     return {
-      get transitionToFeedView() {
-        return transitionToFeedView;
+      get Transitions() {
+        return Transitions;
+      },
+      get Project() {
+        return Project;
       }
     };
   }
@@ -34,13 +37,8 @@ let presenter = new AppPresenter(
 var vapp = new Vue({
   el: '#main',
   data: {
-    thing: "Moikka!",
     presenter: presenter
   }
 });
 
-TransitionEmitter.on("transition", (target, options) => {
-  if (target ==  "feed") {
-    presenter.activateFeed(options.feed);
-  }
-});
+presenter.registerEvents();
