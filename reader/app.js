@@ -1,4 +1,4 @@
-const { app, BrowserWindow } = require('electron');
+const { ipcMain, shell, app, BrowserWindow } = require('electron');
 
 let win;
 let isDebug = process.env.SAPINAA_DEBUG !== undefined;
@@ -37,4 +37,9 @@ app.on('activate', () => {
   if (win === null) {
     createWindow();
   }
+});
+
+ipcMain.on('asynchronous-message', (event, arg) => {
+  console.log(arg);
+  shell.openItem(arg);
 });

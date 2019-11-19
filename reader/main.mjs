@@ -7,6 +7,7 @@ import { loadTestFeeds } from "./models/feeds.mjs";
 import { FeedListUI } from "./ui/feed-list-ui.mjs";
 import { AppUI } from "./ui/app-ui.mjs";
 import { Transitions } from "./ui/transitions.mjs";
+import { Actions } from "./ui/actions.mjs";
 
 import "babel-polyfill";
 let Vue = require("vue/dist/vue.js");
@@ -25,6 +26,9 @@ Vue.mixin({
     return {
       get Transitions() {
         return Transitions;
+      },
+      get Actions() {
+        return Actions;
       },
       get Project() {
         return Project;
