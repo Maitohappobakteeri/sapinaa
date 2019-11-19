@@ -7,7 +7,7 @@ class Feeds {
 }
 
 import testfeeds from "~/../test/testfeeds.json";
-function loadTestFeeds(filename) {
+function loadTestFeeds() {
   return new Feeds(testfeeds.map(f => new Feed(f.title, f.url)));
 }
 

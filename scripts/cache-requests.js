@@ -1,15 +1,12 @@
 var fs = require('fs');
-
-var dir = './cache';
-if (!fs.existsSync(dir)){
-  fs.mkdirSync(dir);
-}
+var fetch = require("node-fetch");
 
 function readJSON(filename) {
   return JSON.parse(fs.readFileSync(filename, 'utf8'));
 }
 
-var cachedResponses = readJSON("./cache/requestDebugCache");
+var urls = readJSON("./test/testfeeds.json")
+  .map(o => o.url);
 
 function sleep(ms) {
   return new Promise(resolve => setTimeout(resolve, ms));
@@ -18,15 +15,15 @@ function sleep(ms) {
 async function cacheFeeds(feeds) {
   console.log("Creating feed response cache");
   let responses = {};
-  console.log(feeds);
-  for (let i in feeds) {
-    let feed = feeds[i];
-    let response = await fetch(feed.url).then(response => response.text());
-    responses[feed.url] = response;
+  console.log(urls);
+  for (let i in urls) {
+    let url = urls[i];
+    let response = await fetch(url).then(response => response.text());
+    responses[url] = response;
     await sleep(2000);
   }
 
-  fs.writeFile("./cache/requestDebugCache", JSON.stringify(responses),
+  fs.writeFile("./test/testfeedsdata.json", JSON.stringify(responses),
     function(err) {
       if(err) {
           return console.log(err);
@@ -40,4 +37,4 @@ function getCachedResponse(url) {
   return cachedResponses[url];
 }
 
-export { cacheFeeds, getCachedResponse };
+cacheFeeds(urls);

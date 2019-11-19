@@ -31,7 +31,7 @@ Vue.mixin({
   }
 });
 
-let feeds = loadTestFeeds("test/testfeeds.json");
+let feeds = loadTestFeeds();
 let ui = new AppUI(
   new FeedListUI(feeds),
   feeds.feeds[0]

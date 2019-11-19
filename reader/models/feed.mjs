@@ -1,5 +1,5 @@
+import * as Project from "~/project.mjs";
 import { FeedItem } from "./feed-item.mjs";
-// import { getCachedResponse } from "./debug-feed-cache.mjs";
 import { parseXML } from "../communication/xml-query.mjs";
 
 class Feed {
@@ -15,9 +15,15 @@ class Feed {
         return;
       }
 
-      console.log("Fetching rss feed from " + this.url);
-      let text = await fetch(this.url).then(response => response.text());
-      // let text = getCachedResponse(this.url);
+      let text = undefined;
+      if (!Project.isDebug) {
+        console.log("Fetching rss feed from " + this.url);
+        text = await fetch(this.url).then(response => response.text());
+      }
+      else {
+        text = getCachedResponse(this.url);
+      }
+
       parseRSSResponse(text)
         .forEach(item => this.items.push(item));
     }
@@ -39,6 +45,12 @@ function parseFeedItem(e) {
   // item.content = e.firstWithName("content")
   //                 .firstWithType("cdata").cdata;
   return item;
+}
+
+import cachedResponses from "~/../test/testfeedsdata.json";
+function getCachedResponse(url) {
+  console.log("Returning cached response for " + url);
+  return cachedResponses[url];
 }
 
 export { Feed, FeedItem };

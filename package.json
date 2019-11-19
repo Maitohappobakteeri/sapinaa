@@ -4,14 +4,15 @@
   "description": "RSS Reader",
   "main": "reader/app.js",
   "scripts": {
-    "dev": "SAPINAA_DEBUG=1 electron .",
-    "cache-requests": "node --experimental-modules ./scripts/cache-requests.mjs",
+    "dev": "electron .",
+    "cache-requests": "node ./scripts/cache-requests.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",
   "license": "MIT",
   "dependencies": {
     "babel-polyfill": "^6.26.0",
+    "node-fetch": "^2.6.0",
     "test": "^0.6.0",
     "vue": "^2.6.10",
     "xml-js": "^1.6.11"

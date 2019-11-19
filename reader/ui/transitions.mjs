@@ -1,4 +1,4 @@
-const EventEmitter = require('events');
+import EventEmitter from 'events';
 
 export const TransitionEmitter = new EventEmitter();
 
