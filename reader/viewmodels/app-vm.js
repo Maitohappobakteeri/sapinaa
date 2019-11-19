@@ -1,6 +1,6 @@
 import { TransitionEmitter } from "../transitions.js";
 
-class AppPresenter {
+export class AppVM {
   constructor(feedList, current) {
     this.feeds = feedList;
     this.activateFeed(current);
@@ -19,5 +19,3 @@ class AppPresenter {
     });
   }
 }
-
-export { AppPresenter };
