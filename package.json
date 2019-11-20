@@ -35,6 +35,7 @@
     }
   },
   "devDependencies": {
+    "colors": "^1.4.0",
     "cssnano": "^4.1.10"
   }
 }
