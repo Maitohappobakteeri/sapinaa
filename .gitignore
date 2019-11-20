@@ -4,4 +4,4 @@ cache/
 .cache/
 dist/
 
-test/testfeedsdata.json
+test/

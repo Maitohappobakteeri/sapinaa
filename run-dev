@@ -5,6 +5,10 @@ set -euxo pipefail
 export SAPINAA_DEBUG=1
 
 # Create debug data if it doesn't exist
+if [[ ! -f "./test/testfeeds.json" ]];
+then
+    cp "./test/testfeeds.json.template" "./test/testfeeds.json"
+fi
 if [[ ! -f "./test/testfeedsdata.json" ]];
 then
     npm run cache-requests
