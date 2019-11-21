@@ -4,8 +4,9 @@ import { parseXML } from "../communication/xml-query.mjs";
 import { createSourceArray } from "./derived-array.js";
 
 class Feed {
-    constructor(title, url) {
-      this.title = title;
+    constructor(url, title) {
+      this.title = "New Feed";
+      this.customTitle = title;
       this.url = url;
       this.items = createSourceArray();
     }
@@ -25,17 +26,33 @@ class Feed {
         text = getCachedResponse(this.url);
       }
 
-      parseRSSResponse(text)
-        .forEach(item => this.items.push(item));
+      let rssResponse = parseRSSResponse(text);
+
+      this.title = rssResponse.title;
+      rssResponse.items.forEach(item => this.items.push(item));
     }
 }
 
 function parseRSSResponse(xmlString) {
-  return parseXML(xmlString)
+  let xml = parseXML(xmlString);
+
+  let items = xml
     .firstWithName("rss")
     .firstWithName("channel")
     .elementsWithName("item")
     .map(e => parseFeedItem(e));
+
+  let title = xml
+    .firstWithName("rss")
+    .firstWithName("channel")
+    .firstWithName("title")
+    .firstWithType("text")
+    .text;
+
+  return {
+    title: title,
+    items: items
+  };
 }
 
 function parseFeedItem(e) {

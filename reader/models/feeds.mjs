@@ -10,6 +10,6 @@ export class Feeds {
 import testfeeds from "~/../test/testfeeds.json";
 export function loadTestFeeds() {
   return new Feeds(
-    createSourceArray(testfeeds.map(f => new Feed(f.title, f.url)))
+    createSourceArray(testfeeds.map(f => new Feed(f.url, f.title)))
   );
 }

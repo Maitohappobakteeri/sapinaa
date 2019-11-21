@@ -8,7 +8,7 @@ export class FeedUI {
   }
 
   get title() {
-    return this.feed.title;
+    return this.feed.customTitle || this.feed.title;
   }
 
   activate() {

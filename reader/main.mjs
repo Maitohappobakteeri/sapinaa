@@ -47,7 +47,7 @@ let ui = new AppUI(
 
 Config.load("feeds.json").then(data => {
   data.forEach(f => {
-    ui.addFeed(new Feed(f.title, f.url));
+    ui.addFeed(new Feed(f.url, f.title));
   });
 });
 
