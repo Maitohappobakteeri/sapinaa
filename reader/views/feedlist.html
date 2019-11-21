@@ -1,8 +1,7 @@
 <div>
-  <ul>
-    <li v-for="feed in data.feeds"
-        v-on:click="Transitions.transitionToFeedView(feed)">
-      {{feed.title}}
-    </li>
-  </ul>
+  <div v-for="feed in data.feeds"
+      v-on:click="Transitions.transitionToFeedView(feed)"
+      v-bind:class="[feed.isActive ? 'active' : '']">
+    <p>{{feed.title}}</p>
+  </div>
 </div>
