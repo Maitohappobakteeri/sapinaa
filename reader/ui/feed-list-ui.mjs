@@ -1,8 +1,17 @@
+import { Feed } from "../models/feed.mjs";
 import { FeedUI } from "./feed-ui.mjs";
+import { Config } from "../config.mjs";
 
 export class FeedListUI {
   constructor(feeds) {
+    this.newUrl = "";
     this.feeds = feeds.feeds.map(f => new FeedUI(f));
+  }
+
+  newFeed() {
+    let feed = new Feed(this.newUrl);
+    this.addFeed(feed);
+    this.saveFeeds();
   }
 
   addFeed(feed) {
@@ -17,5 +26,13 @@ export class FeedListUI {
 
   get defaultFeed() {
     return this.feeds[0];
+  }
+
+  saveFeeds() {
+    Config.save("feeds.json", this.feeds
+      .map(f => f.feed)
+      .map(f => {
+        return { title: f.customTitle, url: f.url };
+      }));
   }
 }
