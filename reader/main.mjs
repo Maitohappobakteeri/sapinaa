@@ -39,8 +39,7 @@ Vue.mixin({
 
 let feeds = loadTestFeeds();
 let ui = new AppUI(
-  new FeedListUI(feeds),
-  feeds.feeds[0]
+  new FeedListUI(feeds)
 );
 
 var vapp = new Vue({

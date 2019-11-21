@@ -1,14 +1,15 @@
 import { TransitionEmitter } from "./transitions.mjs";
 
 export class AppUI {
-  constructor(feedList, current) {
+  constructor(feedList) {
     this.feeds = feedList;
-    this.activateFeed(current);
+    this.activateFeed(this.feeds.defaultFeed);
   }
 
   activateFeed(feed) {
     this.current = feed;
-    feed.refresh();
+    console.log(feed);
+    this.feeds.activateFeed(feed);
   }
 
   registerEvents() {

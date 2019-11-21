@@ -1,4 +1,5 @@
 import { Feed } from "./feed.mjs";
+import { createSourceArray } from "./derived-array.js";
 
 class Feeds {
   constructor(feeds) {
@@ -8,7 +9,9 @@ class Feeds {
 
 import testfeeds from "~/../test/testfeeds.json";
 function loadTestFeeds() {
-  return new Feeds(testfeeds.map(f => new Feed(f.title, f.url)));
+  return new Feeds(
+    createSourceArray(testfeeds.map(f => new Feed(f.title, f.url)))
+  );
 }
 
 export { Feeds, loadTestFeeds };

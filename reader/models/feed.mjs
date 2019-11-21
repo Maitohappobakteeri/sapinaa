@@ -1,12 +1,13 @@
 import * as Project from "~/project.mjs";
 import { FeedItem } from "./feed-item.mjs";
 import { parseXML } from "../communication/xml-query.mjs";
+import { createSourceArray } from "./derived-array.js";
 
 class Feed {
     constructor(title, url) {
       this.title = title;
       this.url = url;
-      this.items = [];
+      this.items = createSourceArray();
     }
 
     async refresh() {

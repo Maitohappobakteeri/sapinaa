@@ -1,6 +1,6 @@
 <div>
   <ul>
-    <li v-for="feed in data.feeds.feeds"
+    <li v-for="feed in data.feeds"
         v-on:click="Transitions.transitionToFeedView(feed)">
       {{feed.title}}
     </li>
