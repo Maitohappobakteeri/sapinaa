@@ -1,5 +1,5 @@
 const { ipcMain, shell, app, BrowserWindow } = require("electron");
-const storage = require("./storage.js")
+const storage = require("./storage.js");
 
 let win;
 let isDebug = process.env.SAPINAA_DEBUG !== undefined;

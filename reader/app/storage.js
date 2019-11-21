@@ -1,6 +1,6 @@
-var fs = require('fs');
+const fs = require("fs");
 const path = require("path");
-const { app } = require('electron')
+const { app } = require("electron");
 
 let dir = app.getPath("userData");
 
