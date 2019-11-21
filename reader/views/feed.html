@@ -1,4 +1,7 @@
-<div>
+<div v-if="data">
   <p> Feed {{data.title}} </p>
   <feed-item-short v-bind:data="item" v-for="item in data.items"></feeditem>
+</div>
+<div v-else="data">
+  <p> . . . </p>
 </div>
