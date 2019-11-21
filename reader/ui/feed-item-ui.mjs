@@ -1,3 +1,4 @@
+import { Actions } from "./actions.mjs";
 
 export class FeedItemUI {
   constructor(feedItem) {
@@ -10,5 +11,10 @@ export class FeedItemUI {
 
   get description() {
     return this.item.description;
+  }
+
+  openWebPage() {
+    console.log("Opening feed item in browser", this.item.link);
+    Actions.openUrl(this.item.link);
   }
 };

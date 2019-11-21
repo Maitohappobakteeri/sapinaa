@@ -14,7 +14,6 @@
 
 export function createSourceArray(arr) {
   arr = arr && arr.slice(0) || [];
-  console.log(arr);
   arr.derivedArrays = [];
   arr.push = function(item) {
     this.derivedArrays.forEach(d => d.push(d.mapFun(item)));

@@ -40,6 +40,6 @@ app.on('activate', () => {
 });
 
 ipcMain.on('asynchronous-message', (event, arg) => {
-  console.log(arg);
+  console.log("async message from render thread: ", arg);
   shell.openItem(arg);
 });

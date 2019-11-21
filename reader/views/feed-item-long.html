@@ -1,4 +1,4 @@
-<div v-on:click="Actions.openUrl(data.link)">
+<div v-on:click="data.openWebPage()">
   <h2>{{data.headline}}</h2>
   <p>{{data.description}}</p>
   <iframe v-if="data.content" v-bind:srcdoc="data.content" style="width: 100%;">

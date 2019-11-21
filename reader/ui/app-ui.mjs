@@ -8,7 +8,6 @@ export class AppUI {
 
   activateFeed(feed) {
     this.current = feed;
-    console.log(feed);
     this.feeds.activateFeed(feed);
   }
 
