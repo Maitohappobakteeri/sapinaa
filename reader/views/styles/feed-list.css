@@ -1,3 +1,7 @@
+#feedlist {
+  padding: 1em;
+}
+
 #feedlist > div {
   margin: 1em;
   border-style: solid;

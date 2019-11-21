@@ -33,7 +33,6 @@ h2, h3 {
 
 #mainContent > div {
   max-height: 100%;
-  padding: 1em;
   border: solid;
 }
 

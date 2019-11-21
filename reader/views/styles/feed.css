@@ -1,4 +1,16 @@
 
 #feed-container {
   overflow: auto;
+  max-width: 800px;
+}
+
+#feed-container h1 {
+  padding: 1em;
+}
+
+.feed-item {
+  padding: 1em;
+  border: solid;
+  border-color: gray;
+  margin: 0;
 }
