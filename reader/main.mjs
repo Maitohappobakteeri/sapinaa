@@ -1,7 +1,9 @@
 import * as Project from "./project.mjs";
+import { Config } from "./config.mjs";
 import components from "./views/**/*.html";
 
-import { loadTestFeeds } from "./models/feeds.mjs";
+import { Feeds } from "./models/feeds.mjs";
+import { Feed } from "./models/feed.mjs";
 // import { cacheFeeds } from "./models/debug-feed-cache.mjs";
 
 import { FeedListUI } from "./ui/feed-list-ui.mjs";
@@ -33,10 +35,21 @@ Vue.mixin({
   }
 });
 
-let feeds = loadTestFeeds();
+// Config.save("feeds.json", feeds.feeds.map(f => {
+//   return { title: f.title, url: f.url };
+// }));
+
+let feeds = new Feeds();
+
 let ui = new AppUI(
   new FeedListUI(feeds)
 );
+
+Config.load("feeds.json").then(data => {
+  data.forEach(f => {
+    ui.feeds.addFeed(new Feed(f.title, f.url));
+  });
+});
 
 var vapp = new Vue({
   el: '#main',

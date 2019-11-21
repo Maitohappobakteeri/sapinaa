@@ -2,7 +2,7 @@
   "name": "sapinaa",
   "version": "0.0.0",
   "description": "RSS Reader",
-  "main": "reader/app.js",
+  "main": "reader/app/app.js",
   "scripts": {
     "dev": "electron .",
     "cache-requests": "node ./scripts/cache-requests.js",

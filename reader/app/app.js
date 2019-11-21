@@ -1,4 +1,5 @@
-const { ipcMain, shell, app, BrowserWindow } = require('electron');
+const { ipcMain, shell, app, BrowserWindow } = require("electron");
+const storage = require("./storage.js")
 
 let win;
 let isDebug = process.env.SAPINAA_DEBUG !== undefined;
@@ -41,5 +42,14 @@ app.on('activate', () => {
 
 ipcMain.on('asynchronous-message', (event, arg) => {
   console.log("async message from render thread: ", arg);
-  shell.openItem(arg);
+  if (arg.action == "open") {
+    shell.openItem(arg.url);
+  }
+  else if (arg.action == "load") {
+    let data = storage.load(arg.name);
+    event.reply('asynchronous-reply', {action: "load", name: arg.name, data: data});
+  }
+  else if (arg.action == "save") {
+    storage.save(arg.name, arg.data);
+  }
 });

@@ -5,6 +5,10 @@ export class FeedListUI {
     this.feeds = feeds.feeds.map(f => new FeedUI(f));
   }
 
+  addFeed(feed) {
+    this.feeds.push(new FeedUI(feed));
+  }
+
   activateFeed(feed) {
     console.log("Activating feed", feed.title);
     this.feeds.filter(f => f !== feed).forEach(f => f.deactivate());

@@ -3,7 +3,6 @@ import { TransitionEmitter } from "./transitions.mjs";
 export class AppUI {
   constructor(feedList) {
     this.feeds = feedList;
-    this.activateFeed(this.feeds.defaultFeed);
   }
 
   activateFeed(feed) {
