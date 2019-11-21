@@ -6,13 +6,18 @@
   </head>
   <body>
     <div id="main">
-      <h1>{{Project.name}}-{{Project.version}}</h1>
+      <h1 id="app-info">{{Project.name}}-{{Project.version}}</h1>
       <div id="mainContent">
         <feedlist id="feedlist" v-bind:data="app.feeds"></feedlist>
         <feed style="flex: 1;" v-bind:data="app.current"></feed>
       </div>
     </div>
   </body>
-  <link rel="stylesheet" type="text/css" href="views/common.css">
+
+  <link rel="stylesheet" type="text/css" href="views/styles/common.css">
+  <link rel="stylesheet" type="text/css" href="views/styles/edit-feed.css">
+  <link rel="stylesheet" type="text/css" href="views/styles/feed-list.css">
+  <link rel="stylesheet" type="text/css" href="views/styles/feed.css">
+
   <script src="main.mjs"></script>
 </html>

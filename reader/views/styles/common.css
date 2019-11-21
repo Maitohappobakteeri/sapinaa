@@ -1,0 +1,44 @@
+html {
+  height: 100%;
+  background-color: #2f2e31;
+  color: #FFFFFF;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+h1 {
+  color: #e68ab4;
+}
+
+h2, h3 {
+  color: #e2afbc;
+}
+
+#main {
+  height: 100%;
+}
+
+#mainContent {
+  max-height: 100%;
+  display: flex;
+  flex-direction: row;
+  content-align: center;
+}
+
+#mainContent > div {
+  max-height: 100%;
+  padding: 1em;
+  border: solid;
+}
+
+#app-info {
+  position: absolute;
+  left: 1em;
+  bottom: 1em;
+}

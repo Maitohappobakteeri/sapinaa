@@ -1,0 +1,14 @@
+#feedlist > div {
+  margin: 1em;
+  border-style: solid;
+  border-width: 0px 0px 2px 0px;
+  border-color: gray;
+}
+
+#feedlist > div.active {
+  border-color: #DB7590;
+}
+
+#feedlist > div.active p {
+  color: #e68ab4;
+}
