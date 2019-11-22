@@ -14,6 +14,8 @@ body {
 
 h1 {
   color: #e68ab4;
+  padding: 1em;
+  margin: 0;
 }
 
 h2, h3 {
@@ -28,7 +30,6 @@ h2, h3 {
   max-height: 100%;
   display: flex;
   flex-direction: row;
-  content-align: center;
 }
 
 #mainContent > div {

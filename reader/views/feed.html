@@ -1,12 +1,16 @@
 <div id="feed-container">
-  <div v-if="data">
-    <h1>{{data.title}}</h1>
-    <div v-for="item in data.items" v-on:click="data.openWebPage()"
-         class="feed-item">
-      <feed-item-short v-bind:data="item"></feed-item-short>
+  <h1>{{data.title}}</h1>
+  <div id="feed-items">
+    <div v-if="data">
+      <div class="feed-item-sep"></div>
+      <div v-for="item in data.items" v-on:click="item.openWebPage()"
+           class="feed-item">
+        <feed-item-short v-bind:data="item"></feed-item-short>
+        <div class="feed-item-sep"></div>
+      </div>
     </div>
-  </div>
-  <div v-else="data">
-    <p> . . . </p>
+    <div v-else="data">
+      <p> . . . </p>
+    </div>
   </div>
 </div>
