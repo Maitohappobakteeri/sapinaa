@@ -4,7 +4,6 @@ import components from "./views/**/*.html";
 
 import { Feeds } from "./models/feeds.mjs";
 import { Feed } from "./models/feed.mjs";
-// import { cacheFeeds } from "./models/debug-feed-cache.mjs";
 
 import { FeedListUI } from "./ui/feed-list-ui.mjs";
 import { AppUI } from "./ui/app-ui.mjs";
@@ -34,10 +33,6 @@ Vue.mixin({
     };
   }
 });
-
-// Config.save("feeds.json", feeds.feeds.map(f => {
-//   return { title: f.title, url: f.url };
-// }));
 
 let feeds = new Feeds();
 
