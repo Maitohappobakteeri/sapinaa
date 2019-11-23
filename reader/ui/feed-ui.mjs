@@ -16,13 +16,16 @@ export class FeedUI {
     return this.feed.customTitle || this.feed.title;
   }
 
-  activate() {
-    this.refresh();
+  async activate() {
     this.isActive = true;
+    await this.refresh();
   }
 
-  refresh() {
-    this.feed.refresh();
+  async refresh() {
+    if (this.feed.lastFetched === null
+        || Date.now() - this.feed.lastFetched > 5 * 60 * 1000) {
+          await this.feed.refresh();
+    }
   }
 
   deactivate() {

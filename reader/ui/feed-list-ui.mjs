@@ -18,16 +18,16 @@ export class FeedListUI {
 
   refresh() {
     setImmediate((async function() {
-      for (let i in this.feeds) {
-        let f = this.feeds[i];
+      for (let f of this.feeds) {
         f.refresh();
         await sleep(500);
       }
     }).bind(this));
+    this.saveFeeds();
   }
 
   newFeed() {
-    let feed = new Feed(this.getNextUID(), this.newUrl);
+    let feed = new Feed(this.getNextUID(), null, this.newUrl);
     this.addFeed(feed);
     this.saveFeeds();
   }
@@ -37,6 +37,7 @@ export class FeedListUI {
       feed.uid = this.getNextUID();
     }
 
+    feed.load();
     this.feeds.push(new FeedUI(feed));
   }
 
@@ -45,10 +46,11 @@ export class FeedListUI {
     this.saveFeeds();
   }
 
-  activateFeed(feed) {
+  async activateFeed(feed) {
     console.log("Activating feed", feed.title);
     this.feeds.filter(f => f !== feed).forEach(f => f.deactivate());
-    feed.activate();
+    await feed.activate();
+    this.saveFeeds();
   }
 
   get defaultFeed() {
@@ -56,9 +58,12 @@ export class FeedListUI {
   }
 
   saveFeeds() {
+    // TODO: Separate config and cached data
     let compactFeeds =  this.feeds
       .map(f => f.feed)
-      .map(f => {return { uid: f.uid, title: f.customTitle, url: f.url };});
+      .map(f => {return {
+        uid: f.uid, title: f.customTitle, url: f.url, lastFetched: f.lastFetched
+      };});
     Storage.save("feeds.json", {nextUID: this.nextUID, feeds: compactFeeds});
   }
 }

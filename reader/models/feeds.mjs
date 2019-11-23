@@ -1,6 +1,7 @@
 import { Feed } from "./feed.mjs";
 import { createSourceArray } from "./derived-array.mjs";
 
+// TODO: Delete this file
 export class Feeds {
   constructor(feeds) {
     this.feeds = feeds || [];

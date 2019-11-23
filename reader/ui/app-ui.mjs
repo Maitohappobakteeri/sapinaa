@@ -17,9 +17,9 @@ export class AppUI {
     }
   }
 
-  activateFeed(feed) {
+  async activateFeed(feed) {
     this.current = feed;
-    this.feeds.activateFeed(feed);
+    await this.feeds.activateFeed(feed);
   }
 
   registerEvents() {
@@ -43,12 +43,12 @@ export class AppUI {
     });
   }
 
-  loadConfig() {
-    Storage.load("feeds.json").then((data => {
-      this.feeds.nextUID = data.nextUID || 0;
-      data.feeds.forEach(f => {
-        this.addFeed(new Feed(f.uid, f.url, f.title));
-      });
-    }).bind(this));
+  async loadConfig() {
+    let conf = await Storage.load("feeds.json");
+    this.feeds.nextUID = conf.nextUID || 0;
+    conf.feeds.forEach(f => {
+      let lastFetched = f.lastFetched && new Date(f.lastFetched) || null;
+      this.addFeed(new Feed(f.uid, lastFetched, f.url, f.title));
+    });
   }
 }

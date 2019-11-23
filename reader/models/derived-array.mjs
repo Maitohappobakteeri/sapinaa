@@ -19,6 +19,10 @@ export function createSourceArray(arr) {
     this.derivedArrays.forEach(d => d.push(d.mapFun(item)));
     Array.prototype.push.call(this, item);
   };
+  arr.insert = function(i, item) {
+    this.derivedArrays.forEach(d => d.splice(i, 0, d.mapFun(item)));
+    this.splice(i, 0, item);
+  };
   arr.deriveArray = function(mapFun) {
     let derArr = this.map(mapFun);
     derArr.mapFun = mapFun;

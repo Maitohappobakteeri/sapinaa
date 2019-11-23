@@ -6,6 +6,7 @@ class FeedItem {
     this.link = "";
     this.content = "";
     this.imageURL = "";
+    this.pubDate = null;
   }
 }
 
