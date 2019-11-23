@@ -4,9 +4,9 @@ import { Storage } from "../storage.mjs";
 import { sleep } from "../utility/async.mjs";
 
 export class FeedListUI {
-  constructor(feeds) {
+  constructor() {
     this.newUrl = "";
-    this.feeds = feeds.feeds.map(f => new FeedUI(f));
+    this.feeds = [];
     this.nextUID = undefined;
   }
 
