@@ -1,5 +1,11 @@
 <div>
-  <div v-for="feed in data.feeds"
+  <div>
+    <h3 style="display:inline-block; padding-right: 0em;">Feeds</h3>
+    <p style="display:inline-block; padding-right: 0.5em;"
+       v-on:click="data.refresh()">refresh</p>
+  </div>
+  <div class="feed-list-item"
+      v-for="feed in data.feeds"
       v-on:click="Transitions.transitionToFeedView(feed)"
       v-bind:class="[feed.isActive ? 'active' : '']">
     <p>{{feed.title}}</p>

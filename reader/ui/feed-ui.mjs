@@ -17,8 +17,12 @@ export class FeedUI {
   }
 
   activate() {
-    this.feed.refresh();
+    this.refresh();
     this.isActive = true;
+  }
+
+  refresh() {
+    this.feed.refresh();
   }
 
   deactivate() {
