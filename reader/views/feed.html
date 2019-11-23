@@ -1,7 +1,12 @@
 <div id="feed-container">
-  <h1>{{data.title}}</h1>
-  <div id="feed-items">
-    <div v-if="data">
+  <div v-if="data">
+    <div v-if="!(data.isEditing)">
+      <h1 style="display:inline-block; padding-right: 0em;">{{data.title}}</h1>
+      <p style="display:inline-block; padding-right: 0.5em;"
+         v-on:click="data.startEditing()">edit</p>
+    </div>
+    <edit-feed v-else v-bind:data="data"></edit-feed>
+    <div id="feed-items">
       <div class="feed-item-sep"></div>
       <div v-for="item in data.items" v-on:click="item.openWebPage()"
            class="feed-item">
@@ -9,8 +14,8 @@
         <div class="feed-item-sep"></div>
       </div>
     </div>
-    <div v-else="data">
-      <p> . . . </p>
-    </div>
+  </div>
+  <div v-else>
+    <p> . . . </p>
   </div>
 </div>

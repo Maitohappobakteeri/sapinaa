@@ -18,7 +18,7 @@ class Feed {
       }
 
       let text = undefined;
-      if (!Project.isDebug || true) {
+      if (!Project.isDebug) {
         console.log("Fetching rss feed from " + this.url);
         text = await fetch(this.url).then(response => response.text());
       }

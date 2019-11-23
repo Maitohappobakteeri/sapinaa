@@ -1,5 +1,6 @@
 #feedlist {
   padding: 1em;
+  width: 350px;
 }
 
 #feedlist > div {

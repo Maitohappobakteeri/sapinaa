@@ -1,4 +1,5 @@
 import { TransitionEmitter } from "./transitions.mjs";
+import { ActionEmitter } from "./actions.mjs";
 
 export class AppUI {
   constructor(feedList) {
@@ -23,6 +24,12 @@ export class AppUI {
     TransitionEmitter.on("transition", (target, options) => {
       if (target ==  "feed") {
         this.activateFeed(options.feed);
+      }
+    });
+
+    ActionEmitter.on("action", (target, options) => {
+      if (target ==  "save") {
+        this.feeds.saveFeeds();
       }
     });
   }
