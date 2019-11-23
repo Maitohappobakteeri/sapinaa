@@ -41,4 +41,8 @@ export class FeedUI {
     this.edits.title = this.title;
     this.edits.url = this.feed.url;
   }
+
+  deleteFeed() {
+    Actions.deleteFeed(this);
+  }
 }

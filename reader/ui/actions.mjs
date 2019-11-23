@@ -13,5 +13,9 @@ export const Actions = {
   saveFeeds: function() {
     setImmediate(() =>
       ActionEmitter.emit("action", "save"));
+  },
+  deleteFeed: function(feed) {
+    setImmediate(() =>
+      ActionEmitter.emit("action", "delete", {feed: feed}));
   }
 };

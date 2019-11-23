@@ -32,5 +32,12 @@ export class AppUI {
         this.feeds.saveFeeds();
       }
     });
+
+    ActionEmitter.on("action", (target, options) => {
+      if (target ==  "delete") {
+        this.feeds.deleteFeed(options.feed);
+        this.activateFeed(this.feeds.defaultFeed);
+      }
+    });
   }
 }

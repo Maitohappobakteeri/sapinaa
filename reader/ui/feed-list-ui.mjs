@@ -18,6 +18,11 @@ export class FeedListUI {
     this.feeds.push(new FeedUI(feed));
   }
 
+  deleteFeed(feed) {
+    this.feeds = this.feeds.filter(f => f !== feed);
+    this.saveFeeds();
+  }
+
   activateFeed(feed) {
     console.log("Activating feed", feed.title);
     this.feeds.filter(f => f !== feed).forEach(f => f.deactivate());
