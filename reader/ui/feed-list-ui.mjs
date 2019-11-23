@@ -1,12 +1,19 @@
 import { Feed } from "../models/feed.mjs";
 import { FeedUI } from "./feed-ui.mjs";
-import { Config } from "../config.mjs";
+import { Storage } from "../storage.mjs";
 import { sleep } from "../utility/async.mjs";
 
 export class FeedListUI {
   constructor(feeds) {
     this.newUrl = "";
     this.feeds = feeds.feeds.map(f => new FeedUI(f));
+    this.nextUID = undefined;
+  }
+
+  getNextUID() {
+    let uid = this.nextUID;
+    this.nextUID += 1;
+    return uid;
   }
 
   refresh() {
@@ -20,12 +27,16 @@ export class FeedListUI {
   }
 
   newFeed() {
-    let feed = new Feed(this.newUrl);
+    let feed = new Feed(this.getNextUID(), this.newUrl);
     this.addFeed(feed);
     this.saveFeeds();
   }
 
   addFeed(feed) {
+    if (feed.uid === undefined) {
+      feed.uid = this.getNextUID();
+    }
+
     this.feeds.push(new FeedUI(feed));
   }
 
@@ -45,10 +56,9 @@ export class FeedListUI {
   }
 
   saveFeeds() {
-    Config.save("feeds.json", this.feeds
+    let compactFeeds =  this.feeds
       .map(f => f.feed)
-      .map(f => {
-        return { title: f.customTitle, url: f.url };
-      }));
+      .map(f => {return { uid: f.uid, title: f.customTitle, url: f.url };});
+    Storage.save("feeds.json", {nextUID: this.nextUID, feeds: compactFeeds});
   }
 }

@@ -1,9 +1,8 @@
 import * as Project from "./project.mjs";
-import { Config } from "./config.mjs";
+import { Storage } from "./storage.mjs";
 import components from "./views/**/*.html";
 
 import { Feeds } from "./models/feeds.mjs";
-import { Feed } from "./models/feed.mjs";
 
 import { FeedListUI } from "./ui/feed-list-ui.mjs";
 import { AppUI } from "./ui/app-ui.mjs";
@@ -40,12 +39,6 @@ let ui = new AppUI(
   new FeedListUI(feeds)
 );
 
-Config.load("feeds.json").then(data => {
-  data.forEach(f => {
-    ui.addFeed(new Feed(f.url, f.title));
-  });
-});
-
 var vapp = new Vue({
   el: '#main',
   data: {
@@ -54,3 +47,4 @@ var vapp = new Vue({
 });
 
 ui.registerEvents();
+ui.loadConfig();

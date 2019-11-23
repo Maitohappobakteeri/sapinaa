@@ -1,5 +1,7 @@
 import { TransitionEmitter } from "./transitions.mjs";
 import { ActionEmitter } from "./actions.mjs";
+import { Storage } from "../storage.mjs";
+import { Feed } from "../models/feed.mjs";
 
 export class AppUI {
   constructor(feedList) {
@@ -39,5 +41,14 @@ export class AppUI {
         this.activateFeed(this.feeds.defaultFeed);
       }
     });
+  }
+
+  loadConfig() {
+    Storage.load("feeds.json").then((data => {
+      this.feeds.nextUID = data.nextUID || 0;
+      data.feeds.forEach(f => {
+        this.addFeed(new Feed(f.uid, f.url, f.title));
+      });
+    }).bind(this));
   }
 }

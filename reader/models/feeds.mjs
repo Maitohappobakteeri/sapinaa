@@ -1,5 +1,5 @@
 import { Feed } from "./feed.mjs";
-import { createSourceArray } from "./derived-array.js";
+import { createSourceArray } from "./derived-array.mjs";
 
 export class Feeds {
   constructor(feeds) {
