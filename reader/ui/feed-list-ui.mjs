@@ -42,12 +42,12 @@ export class FeedListUI {
     }).bind(this));
   }
 
-  newFeed() {
+  async newFeed() {
     let feed = new Feed({
       uid: this.getNextUID(),
       url: this.newUrl
     });
-    this.addFeed(feed);
+    await this.addFeed(feed);
     this.saveFeeds();
   }
 
