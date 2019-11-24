@@ -5,6 +5,10 @@
        v-on:click="data.forceRefresh()">refresh</p>
   </div>
   <div class="feed-list-item"
+      v-on:click="Transitions.transitionToFeedView(data.allCombo)">
+    <p>{{data.allCombo.title}}</p>
+  </div>
+  <div class="feed-list-item"
       v-for="feed in data.feeds"
       v-on:click="Transitions.transitionToFeedView(feed)"
       v-bind:class="[feed.isActive ? 'active' : '']">

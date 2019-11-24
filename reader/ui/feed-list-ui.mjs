@@ -2,11 +2,15 @@ import { Feed } from "../models/feed.mjs";
 import { FeedUI } from "./feed-ui.mjs";
 import { Storage } from "../storage.mjs";
 import { sleep } from "../utility/async.mjs";
+import { ComboFeedUI } from "./combo-feed-ui.mjs";
 
 export class FeedListUI {
   constructor() {
     this.newUrl = "";
+
+    this.allCombo = new ComboFeedUI("All");
     this.feeds = [];
+
     this.nextUID = undefined;
   }
 
@@ -54,11 +58,15 @@ export class FeedListUI {
 
     await feed.load();
     this.feeds.push(new FeedUI(feed));
+
+    this.allCombo.onFeedAdded(feed);
   }
 
   deleteFeed(feed) {
     this.feeds = this.feeds.filter(f => f !== feed);
     this.saveFeeds();
+
+    this.allCombo.onFeedDeleted(feed);
   }
 
   async activateFeed(feed) {

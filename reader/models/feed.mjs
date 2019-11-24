@@ -21,7 +21,6 @@ class Feed {
     async load() {
       let cachedInfo = await Storage.load(this.uid + "-cached-info.json");
       if (cachedInfo !== undefined) {
-        console.log(cachedInfo);
         this.title = cachedInfo.title;
         this.lastFetched = cachedInfo.lastFetched
           && new Date(cachedInfo.lastFetched) || null;
@@ -46,6 +45,7 @@ class Feed {
 
       // Sort by descending date
       let i = this.items.findIndex(item => newItem.pubDate >= this.items[i]);
+      if (i === -1) { i = this.items.length; }
       this.items.insert(i, newItem);
     }
 
@@ -84,9 +84,11 @@ class Feed {
           this.uid + "-" + cCounter + "-feed-cache.json"
         );
         if (cache !== undefined) {
-          return data = data.concat(cache);
+          data = data.concat(cache);
         }
       }
+
+      data.forEach(i => i.pubDate = new Date(i.pubDate));
 
       return data;
     }

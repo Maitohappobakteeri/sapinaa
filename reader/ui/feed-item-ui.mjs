@@ -13,6 +13,10 @@ export class FeedItemUI {
     return this.item.description;
   }
 
+  get timeSincePublish() {
+    return (new Date(Date.now()) - this.item.pubDate) / (1000 * 60 * 60);
+  }
+
   openWebPage() {
     console.log("Opening feed item in browser", this.item.link);
     Actions.openUrl(this.item.link);
