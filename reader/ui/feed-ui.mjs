@@ -19,6 +19,7 @@ export class FeedUI {
   async activate() {
     this.isActive = true;
     if (this.needsRefresh()) {
+      console.log("Refreshing activated feed");
       await this.refresh();
     }
   }
@@ -54,6 +55,6 @@ export class FeedUI {
 
   needsRefresh() {
     return this.feed.lastFetched === null
-        || Date.now() - this.feed.lastFetched > 10 * 60 * 1000;
+        || new Date(Date.now()) - this.feed.lastFetched > 10 * 60 * 1000;
   }
 }

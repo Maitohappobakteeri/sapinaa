@@ -26,7 +26,6 @@ export class FeedListUI {
         await sleep(500);
       }
     }).bind(this));
-    this.saveFeeds();
   }
 
   forceRefresh() {
@@ -37,7 +36,6 @@ export class FeedListUI {
         await sleep(500);
       }
     }).bind(this));
-    this.saveFeeds();
   }
 
   newFeed() {
@@ -49,12 +47,12 @@ export class FeedListUI {
     this.saveFeeds();
   }
 
-  addFeed(feed) {
+  async addFeed(feed) {
     if (feed.uid === undefined) {
       feed.uid = this.getNextUID();
     }
 
-    feed.load();
+    await feed.load();
     this.feeds.push(new FeedUI(feed));
   }
 
@@ -67,7 +65,6 @@ export class FeedListUI {
     console.log("Activating feed", feed.title);
     this.feeds.filter(f => f !== feed).forEach(f => f.deactivate());
     await feed.activate();
-    this.saveFeeds();
   }
 
   get defaultFeed() {
@@ -75,7 +72,6 @@ export class FeedListUI {
   }
 
   saveFeeds() {
-    // TODO: Separate config and cached data
     let compactFeeds =  this.feeds
       .map(f => f.feed)
       .map(f => {return {

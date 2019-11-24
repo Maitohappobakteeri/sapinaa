@@ -6,16 +6,12 @@ import { loop } from "../utility/async.mjs";
 
 export class AppUI {
   constructor(feedList) {
-    this.current = undefined;
+    this.current = null;
     this.feeds = feedList;
   }
 
-  addFeed(feed) {
-    this.feeds.addFeed(feed);
-
-    if (!this.current) {
-      this.activateFeed(this.feeds.defaultFeed);
-    }
+  async addFeed(feed) {
+    await this.feeds.addFeed(feed);
   }
 
   async activateFeed(feed) {
@@ -31,6 +27,7 @@ export class AppUI {
     this.registerEvents();
     await this.loadConfig();
     this.startTimers();
+    this.activateFeed(this.feeds.defaultFeed);
   }
 
   registerEvents() {
@@ -57,12 +54,13 @@ export class AppUI {
   async loadConfig() {
     let conf = await Storage.load("feeds.json");
     this.feeds.nextUID = conf.nextUID || 0;
-    conf.feeds.forEach(f => {
-      this.addFeed(new Feed({
+
+    for (let f of conf.feeds) {
+      await this.addFeed(new Feed({
         uid: f.uid,
         url: f.url,
         customTitle: f.title
       }));
-    });
+    }
   }
 }

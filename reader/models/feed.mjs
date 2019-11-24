@@ -14,7 +14,7 @@ class Feed {
       this.title = "New Feed";
       this.lastFetched = null;
 
-      this.lastCached = null;
+      this.lastCached = new Date(Date.now());
       this.cacheCounter = 0;
     }
 
@@ -51,11 +51,12 @@ class Feed {
 
     async refresh() {
       let response = await this.fetch();
+      this.lastFetched = new Date(Date.now());
+
       response.items.forEach(i => this.addItem(i));
       this.title = response.title;
 
       this.writeCache();
-      this.lastFetched = Date.now();
     }
 
     async fetch() {
@@ -106,9 +107,9 @@ class Feed {
         + "-feed-cache.json", newItems
       );
 
-      if (Date.now() - this.lastCached > 6 * 60 * 60 * 1000) {
+      if (new Date(Date.now()) - this.lastCached > 6 * 60 * 60 * 1000) {
         this.cacheCounter += 1;
-        this.lastCached = Date.now();
+        this.lastCached = new Date(Date.now());
       }
     }
 }
