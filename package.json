@@ -1,6 +1,6 @@
 {
   "name": "sapinaa-dev",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "description": "RSS Reader",
   "main": "reader/app/app.js",
   "scripts": {
