@@ -1,0 +1,10 @@
+#!/usr/bin/env bash
+
+set -euxo pipefail
+
+if [[ ! -d "build" ]]; then
+  mkdir build
+fi
+
+cd build
+electron-packager .. sapinaa --electron-version=v7.1.1

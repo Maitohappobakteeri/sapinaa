@@ -3,6 +3,9 @@ const path = require("path");
 const { app } = require("electron");
 
 let dir = app.getPath("userData");
+if (!fs.existsSync(dir)){
+  fs.mkdirSync(dir);
+}
 
 var cacheDir = path.join(dir, "feedCache");
 if (!fs.existsSync(cacheDir)){
