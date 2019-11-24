@@ -76,7 +76,7 @@ export class FeedListUI {
   }
 
   get defaultFeed() {
-    return this.feeds[0];
+    return this.allCombo;
   }
 
   saveFeeds() {
