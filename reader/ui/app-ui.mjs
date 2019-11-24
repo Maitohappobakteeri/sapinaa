@@ -24,7 +24,7 @@ export class AppUI {
   }
 
   startTimers() {
-    loop((() => this.feeds.lazyRefresh()).bind(this), 6 * 60 * 1000);
+    loop((() => this.feeds.lazyRefresh()).bind(this), 15 * 60 * 1000);
   }
 
   async start() {
@@ -58,8 +58,11 @@ export class AppUI {
     let conf = await Storage.load("feeds.json");
     this.feeds.nextUID = conf.nextUID || 0;
     conf.feeds.forEach(f => {
-      let lastFetched = f.lastFetched && new Date(f.lastFetched) || null;
-      this.addFeed(new Feed(f.uid, lastFetched, f.url, f.title));
+      this.addFeed(new Feed({
+        uid: f.uid,
+        url: f.url,
+        customTitle: f.title
+      }));
     });
   }
 }

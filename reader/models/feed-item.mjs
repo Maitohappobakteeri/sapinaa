@@ -7,6 +7,7 @@ class FeedItem {
     this.content = "";
     this.imageURL = "";
     this.pubDate = null;
+    this.cacheCounter = null;
   }
 }
 

@@ -3,3 +3,4 @@
 set -euxo pipefail
 
 rm -f "$HOME/".config/sapinaa/*-feed-cache.json
+rm -f "$HOME/".config/sapinaa/*-cached-info.json

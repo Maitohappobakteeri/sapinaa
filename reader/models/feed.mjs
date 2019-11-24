@@ -5,17 +5,31 @@ import { Storage } from "../storage.mjs";
 import { createSourceArray } from "./derived-array.mjs";
 
 class Feed {
-    constructor(uid, lastFetched, url, title) {
-      this.uid = uid;
-      this.title = "New Feed";
-      this.customTitle = title;
-      this.url = url;
-      this.items = createSourceArray();
+    constructor(config) {
+      this.uid = config.uid;
+      this.customTitle = config.customTitle;
+      this.url = config.url;
 
-      this.lastFetched = lastFetched;
+      this.items = createSourceArray();
+      this.title = "New Feed";
+      this.lastFetched = null;
+
+      this.lastCached = null;
+      this.cacheCounter = 0;
     }
 
     async load() {
+      let cachedInfo = await Storage.load(this.uid + "-cached-info.json");
+      if (cachedInfo !== undefined) {
+        console.log(cachedInfo);
+        this.title = cachedInfo.title;
+        this.lastFetched = cachedInfo.lastFetched
+          && new Date(cachedInfo.lastFetched) || null;
+        this.lastCached = cachedInfo.lastCached
+          && new Date(cachedInfo.lastCached) || null;
+        this.cacheCounter = cachedInfo.cacheCounter;
+      }
+
       let cachedItems = await this.readCache();
       cachedItems.forEach(i => this.addItem(i));
     }
@@ -24,6 +38,10 @@ class Feed {
       // Skip duplicates
       if (this.items.some(i => i.guid === newItem.guid)) {
         return;
+      }
+
+      if (newItem.cacheCounter === null) {
+        newItem.cacheCounter = this.cacheCounter;
       }
 
       // Sort by descending date
@@ -57,15 +75,41 @@ class Feed {
     }
 
     async readCache() {
-      let data = await Storage.load(this.uid + "-feed-cache.json");
-      if (data !== undefined) {
-        return data;
+      // TODO: Clean this
+      let data = [];
+      let cCounter = this.cacheCounter;
+      for (; cCounter >= 0; cCounter--) {
+        let cache = await Storage.load(
+          this.uid + "-" + cCounter + "-feed-cache.json"
+        );
+        if (cache !== undefined) {
+          return data = data.concat(cache);
+        }
       }
-      return [];
+
+      return data;
     }
 
     writeCache() {
-      Storage.save(this.uid + "-feed-cache.json", this.items);
+      Storage.save(this.uid + "-cached-info.json", {
+        title: this.title,
+        lastFetched: this.lastFetched,
+        lastCached: this.lastCached,
+        cacheCounter: this.cacheCounter
+      });
+
+      let newItems = this.items
+        .filter(i => i.cacheCounter === this.cacheCounter);
+
+      Storage.save(
+        this.uid + "-" + this.cacheCounter
+        + "-feed-cache.json", newItems
+      );
+
+      if (Date.now() - this.lastCached > 6 * 60 * 60 * 1000) {
+        this.cacheCounter += 1;
+        this.lastCached = Date.now();
+      }
     }
 }
 

@@ -41,7 +41,10 @@ export class FeedListUI {
   }
 
   newFeed() {
-    let feed = new Feed(this.getNextUID(), null, this.newUrl);
+    let feed = new Feed({
+      uid: this.getNextUID(),
+      url: this.newUrl
+    });
     this.addFeed(feed);
     this.saveFeeds();
   }
