@@ -2,7 +2,7 @@
   <div>
     <h3 style="display:inline-block; padding-right: 0em;">Feeds</h3>
     <p style="display:inline-block; padding-right: 0.5em;"
-       v-on:click="data.refresh()">refresh</p>
+       v-on:click="data.forceRefresh()">refresh</p>
   </div>
   <div class="feed-list-item"
       v-for="feed in data.feeds"

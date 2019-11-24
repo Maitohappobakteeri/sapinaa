@@ -2,6 +2,7 @@ import { TransitionEmitter } from "./transitions.mjs";
 import { ActionEmitter } from "./actions.mjs";
 import { Storage } from "../storage.mjs";
 import { Feed } from "../models/feed.mjs";
+import { loop } from "../utility/async.mjs";
 
 export class AppUI {
   constructor(feedList) {
@@ -20,6 +21,16 @@ export class AppUI {
   async activateFeed(feed) {
     this.current = feed;
     await this.feeds.activateFeed(feed);
+  }
+
+  startTimers() {
+    loop((() => this.feeds.lazyRefresh()).bind(this), 6 * 60 * 1000);
+  }
+
+  async start() {
+    this.registerEvents();
+    await this.loadConfig();
+    this.startTimers();
   }
 
   registerEvents() {

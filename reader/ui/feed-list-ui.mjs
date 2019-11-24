@@ -16,7 +16,21 @@ export class FeedListUI {
     return uid;
   }
 
-  refresh() {
+  lazyRefresh() {
+    console.log("Refreshing feeds");
+    setImmediate((async function() {
+      for (let f of this.feeds) {
+        if (f.needsRefresh()) {
+          f.refresh();
+        }
+        await sleep(500);
+      }
+    }).bind(this));
+    this.saveFeeds();
+  }
+
+  forceRefresh() {
+    console.log("Force refreshing feeds");
     setImmediate((async function() {
       for (let f of this.feeds) {
         f.refresh();

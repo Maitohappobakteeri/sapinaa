@@ -42,5 +42,4 @@ var vapp = new Vue({
   }
 });
 
-ui.registerEvents();
-ui.loadConfig();
+ui.start();

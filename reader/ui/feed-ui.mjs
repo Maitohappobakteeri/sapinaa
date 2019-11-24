@@ -18,9 +18,8 @@ export class FeedUI {
 
   async activate() {
     this.isActive = true;
-    if (this.feed.lastFetched === null
-        || Date.now() - this.feed.lastFetched > 5 * 60 * 1000) {
-          await this.refresh();
+    if (this.needsRefresh()) {
+      await this.refresh();
     }
   }
 
@@ -51,5 +50,10 @@ export class FeedUI {
 
   deleteFeed() {
     Actions.deleteFeed(this);
+  }
+
+  needsRefresh() {
+    return this.feed.lastFetched === null
+        || Date.now() - this.feed.lastFetched > 5 * 60 * 1000;
   }
 }
