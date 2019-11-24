@@ -7,4 +7,4 @@
 
 ## Running
 
-See [run-dev script!](run-dev)
+See [run-dev script!](scripts/run-dev)
