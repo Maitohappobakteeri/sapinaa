@@ -4,6 +4,11 @@ const { app } = require("electron");
 
 let dir = app.getPath("userData");
 
+var cacheDir = path.join(dir, "feedCache");
+if (!fs.existsSync(cacheDir)){
+  fs.mkdirSync(cacheDir);
+}
+
 function readJSON(filename) {
   return JSON.parse(fs.readFileSync(filename, 'utf8'));
 }

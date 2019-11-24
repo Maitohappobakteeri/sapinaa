@@ -19,7 +19,7 @@ class Feed {
     }
 
     async load() {
-      let cachedInfo = await Storage.load(this.uid + "-cached-info.json");
+      let cachedInfo = await Storage.load(this.feedInfoCacheName);
       if (cachedInfo !== undefined) {
         this.title = cachedInfo.title;
         this.lastFetched = cachedInfo.lastFetched
@@ -81,7 +81,7 @@ class Feed {
       let cCounter = this.cacheCounter;
       for (; cCounter >= 0; cCounter--) {
         let cache = await Storage.load(
-          this.uid + "-" + cCounter + "-feed-cache.json"
+          this.feedItemCacheNameFor(cCounter)
         );
         if (cache !== undefined) {
           data = data.concat(cache);
@@ -94,7 +94,7 @@ class Feed {
     }
 
     writeCache() {
-      Storage.save(this.uid + "-cached-info.json", {
+      Storage.save(this.feedInfoCacheName, {
         title: this.title,
         lastFetched: this.lastFetched,
         lastCached: this.lastCached,
@@ -104,15 +104,20 @@ class Feed {
       let newItems = this.items
         .filter(i => i.cacheCounter === this.cacheCounter);
 
-      Storage.save(
-        this.uid + "-" + this.cacheCounter
-        + "-feed-cache.json", newItems
-      );
+      Storage.save(this.feedItemCacheNameFor(this.cacheCounter), newItems);
 
       if (new Date(Date.now()) - this.lastCached > 6 * 60 * 60 * 1000) {
         this.cacheCounter += 1;
         this.lastCached = new Date(Date.now());
       }
+    }
+
+    get feedInfoCacheName() {
+      return "feedCache/" + this.uid + "-cached-info.json";
+    }
+
+    feedItemCacheNameFor(cacheCounter) {
+      return "feedCache/" + this.uid + "-" + cacheCounter + "-feed-cache.json";
     }
 }
 
