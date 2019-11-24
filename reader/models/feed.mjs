@@ -20,22 +20,15 @@ class Feed {
       cachedItems.forEach(i => this.addItem(i));
     }
 
-    addItem(feedItem) {
-      if (this.items.some(i => i.guid === feedItem.guid)) {
-        // console.log("Skipping duplicate feed item:", feedItem.guid);
+    addItem(newItem) {
+      // Skip duplicates
+      if (this.items.some(i => i.guid === newItem.guid)) {
         return;
       }
 
-      let i = 0;
-      // TODO: Replace with findFirst
-      while(i < this.items.length) {
-        if (feedItem.pubDate >= this.items[i]) {
-          break;
-        }
-        i += 1;
-      }
-
-      this.items.insert(i, feedItem);
+      // Sort by descending date
+      let i = this.items.findIndex(item => newItem.pubDate >= this.items[i]);
+      this.items.insert(i, newItem);
     }
 
     async refresh() {
@@ -48,16 +41,19 @@ class Feed {
     }
 
     async fetch() {
-      let text = undefined;
-
-      // TODO: Option to disable fetch on debug
-      if (!Project.isDebug || true) {
+      if (!Project.useCacheOnly) {
         console.log("Fetching rss feed from " + this.url);
-        text = await fetch(this.url).then(response => response.text());
+        let text = await fetch(this.url).then(response => response.text());
+        let rssResponse = parseRSSResponse(text);
+        return rssResponse;
       }
-
-      let rssResponse = parseRSSResponse(text);
-      return rssResponse;
+      else {
+        let emptyResponse = {
+          title: this.title,
+          items: []
+        };
+        return emptyResponse;
+      }
     }
 
     async readCache() {

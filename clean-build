@@ -1,0 +1,6 @@
+#!/usr/bin/env bash
+
+set -euxo pipefail
+
+rm -Rf reader/dist
+rm -Rf reader/.cache
