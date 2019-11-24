@@ -56,7 +56,7 @@ export function createSortedDerivedArray(mapFun, isBeforeSortFun, filterFun) {
     if (i === -1) { i = this.length; }
     this.splice(i, 0, mapped);
   };
-  sortedArr.derInsert = function(item) {
+  sortedArr.derInsert = function(_, item) {
     if (!filterFun(this, item)) { return; }
     let mapped = this.mapFun(item);
     let i = this.findIndex((function(i) { return this.isBeforeSortFun(mapped, i); }).bind(this));
