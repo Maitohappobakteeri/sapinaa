@@ -10,6 +10,10 @@ import { Transitions } from "./ui/transitions.mjs";
 
 import "babel-polyfill";
 let Vue = require("vue/dist/vue.js");
+import Buefy from 'buefy';
+import 'buefy/dist/buefy.css';
+
+Vue.use("buefy");
 
 for (var comp in components) {
     if (Object.prototype.hasOwnProperty.call(components, comp)) {
