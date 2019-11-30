@@ -1,6 +1,6 @@
 import { FeedItemUI } from "./feed-item-ui.mjs";
 import { Actions } from "./actions.mjs";
-import { createSortedDerivedArray } from "../models/derived-array.mjs";
+import { createSortedDerivedArray } from "../data/derived-array.mjs";
 
 export class ComboFeedUI {
   constructor(title, feeds) {

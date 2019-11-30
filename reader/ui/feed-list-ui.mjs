@@ -1,4 +1,4 @@
-import { Feed } from "../models/feed.mjs";
+import { Feed } from "../data/feed.mjs";
 import { FeedUI } from "./feed-ui.mjs";
 import { Storage } from "../storage.mjs";
 import { sleep } from "../utility/async.mjs";

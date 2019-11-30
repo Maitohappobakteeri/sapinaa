@@ -1,7 +1,7 @@
 import { TransitionEmitter } from "./transitions.mjs";
 import { ActionEmitter } from "./actions.mjs";
 import { Storage } from "../storage.mjs";
-import { Feed } from "../models/feed.mjs";
+import { Feed } from "../data/feed.mjs";
 import { loop } from "../utility/async.mjs";
 
 export class AppUI {
