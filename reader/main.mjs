@@ -1,6 +1,8 @@
 import * as Project from "./project.mjs";
 import { Storage } from "./storage.mjs";
+
 import components from "./views/**/*.html";
+import componentsJS from "./views/**/*.js";
 
 import { FeedListUI } from "./ui/feed-list-ui.mjs";
 import { AppUI } from "./ui/app-ui.mjs";
@@ -11,10 +13,17 @@ let Vue = require("vue/dist/vue.js");
 
 for (var comp in components) {
     if (Object.prototype.hasOwnProperty.call(components, comp)) {
-      Vue.component(comp, {
+      let componentScripts = {};
+      if (comp in componentsJS) {
+        let scripts = componentsJS[comp];
+        console.log("Registering scripts for vue component: ", comp);
+        componentScripts.created = scripts["created"];
+      }
+
+      Vue.component(comp, Object.assign({
         props: ["data"],
-        template: components[comp]
-      });
+        template: components[comp],
+      }, componentScripts));
     }
 }
 
