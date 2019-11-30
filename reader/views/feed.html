@@ -1,4 +1,4 @@
-<div style="max-height: 100%;">
+<!-- <div style="max-height: 100%;">
   <div id="feed-container" v-if="data">
     <div v-if="!(data.isEditing)">
       <h1 style="display:inline-block; padding-right: 0em;">{{data.title}}</h1>
@@ -18,4 +18,18 @@
   <div v-else>
     <p> . . . </p>
   </div>
+</div> -->
+<div class="container">
+  <div v-if="data">
+    <h1 style="display:inline-block; padding-right: 0em;">{{data.title}}</h1>
+    <b-button size="is-small" class="is-pulled-right" @click="data.startEditing()">edit</b-button>
+   <div>
+     <div v-for="item in data.items" v-on:click="item.openWebPage()">
+       <feed-item-short v-bind:data="item"></feed-item-short>
+     </div>
+   </div>
+ </div>
+ <div v-else>
+   <p> . . . </p>
+ </div>
 </div>
