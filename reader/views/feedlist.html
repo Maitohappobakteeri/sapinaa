@@ -6,6 +6,6 @@
     </template>
     <b-menu-item @click="Transitions.transitionToFeedView(data.allCombo)" v-bind:active="true" label="All"></b-menu-item>
     <b-menu-item v-for="feed in data.feeds" @click="Transitions.transitionToFeedView(feed)" v-bind:label="feed.title"></b-menu-item>
-    <b-menu-item label="Add feed"></b-menu-item>
+    <b-menu-item @click="newFeed()" label="Add feed"></b-menu-item>
   </b-menu-list>
 </b-menu>

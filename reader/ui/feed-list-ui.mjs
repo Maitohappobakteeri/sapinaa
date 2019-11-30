@@ -6,8 +6,6 @@ import { ComboFeedUI } from "./combo-feed-ui.mjs";
 
 export class FeedListUI {
   constructor() {
-    this.newUrl = "";
-
     this.allCombo = new ComboFeedUI("All");
     this.feeds = [];
 
@@ -42,10 +40,10 @@ export class FeedListUI {
     }).bind(this));
   }
 
-  async newFeed() {
+  async newFeed(newUrl) {
     let feed = new Feed({
       uid: this.getNextUID(),
-      url: this.newUrl
+      url: newUrl
     });
     await this.addFeed(feed);
     this.saveFeeds();

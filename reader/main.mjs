@@ -21,6 +21,8 @@ for (var comp in components) {
       if (comp in componentsJS) {
         let scripts = componentsJS[comp];
         console.log("Registering scripts for vue component: ", comp);
+        componentScripts.data = scripts["data"];
+        componentScripts.methods = scripts["methods"];
         componentScripts.created = scripts["created"];
       }
 
