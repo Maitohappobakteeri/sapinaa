@@ -7,14 +7,15 @@
   <body>
     <div id="main">
       <h1 id="app-info">{{Project.name}}-{{Project.version}}</h1>
-      <div id="mainContent">
-        <feedlist id="feedlist" v-bind:data="app.feeds"></feedlist>
+      <div style="display: flex; flex-direction: row;">
+        <feedlist v-bind:data="app.feeds"></feedlist>
         <feed style="flex: 1;" v-bind:data="app.current"></feed>
       </div>
     </div>
   </body>
 
   <link rel="stylesheet" href="views/styles/custom-buefy-theme.scss">
+  <link rel="stylesheet" href="views/styles/common.scss">
 
   <link rel="stylesheet" href="https://cdn.materialdesignicons.com/2.0.46/css/materialdesignicons.min.css">
 

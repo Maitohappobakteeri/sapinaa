@@ -13,7 +13,7 @@ let Vue = require("vue/dist/vue.js");
 import Buefy from 'buefy';
 import 'buefy/dist/buefy.css';
 
-Vue.use("buefy");
+Vue.use(Buefy);
 
 for (var comp in components) {
     if (Object.prototype.hasOwnProperty.call(components, comp)) {
