@@ -2,9 +2,11 @@
 
 set -euxo pipefail
 
-if [[ ! -d "build" ]]; then
-  mkdir build
-fi
+./scripts/clean-build
+./scripts/bundle
+
+rm -Rf build
+mkdir build
 
 cd build
 electron-packager .. sapinaa --electron-version=v7.1.1

@@ -1,0 +1,9 @@
+#!/usr/bin/env bash
+
+set -euxo pipefail
+
+# Bundle client
+(
+  cd reader
+  parcel build main.html --public-url ./
+)

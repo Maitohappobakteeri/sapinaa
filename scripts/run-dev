@@ -4,11 +4,7 @@ set -euxo pipefail
 
 export SAPINAA_DEBUG=1
 
-# Bundle client
-(
-  cd reader
-  parcel build main.html --public-url ./
-)
+./scripts/bundle
 
 # Start electron
 exec npm run dev
