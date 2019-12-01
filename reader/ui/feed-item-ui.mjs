@@ -14,7 +14,7 @@ export class FeedItemUI {
   }
 
   get timeSincePublish() {
-    return (new Date(Date.now()) - this.item.pubDate) / (1000 * 60 * 60);
+    return Math.floor((new Date(Date.now()) - this.item.pubDate) / (1000 * 60 * 60)) + "h";
   }
 
   openWebPage() {
