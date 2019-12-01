@@ -6,10 +6,7 @@ export class FeedUI {
     this.feed = feed;
     this.isActive = false;
     this.items = feed.items.deriveArray(item => new FeedItemUI(item));
-
     this.isEditing = false;
-    this.edits = {};
-    this.resetEdits();
   }
 
   get title() {
@@ -32,29 +29,28 @@ export class FeedUI {
     this.isActive = false;
   }
 
-  startEditing() {
-    this.isEditing = true;
-    this.resetEdits();
-  }
-
-  saveEdits() {
-    this.isEditing = false;
-    this.feed.customTitle = this.edits.title;
-    this.feed.url = this.edits.url;
-    Actions.saveFeeds();
-  }
-
-  resetEdits() {
-    this.edits.title = this.title;
-    this.edits.url = this.feed.url;
-  }
-
   deleteFeed() {
     Actions.deleteFeed(this);
+  }
+
+  startEditing() {
+    this.isEditing = true;
+  }
+
+  editFeed(edits) {
+    assignIfDef(this.feed, edits, "customTitle");
+    assignIfDef(this.feed, edits, "url");
+    Actions.saveFeeds();
   }
 
   needsRefresh() {
     return this.feed.lastFetched === null
         || new Date(Date.now()) - this.feed.lastFetched > 10 * 60 * 1000;
+  }
+}
+
+function assignIfDef(dst, propSource, prop) {
+  if (prop in propSource) {
+    dst[prop] = propSource[prop];
   }
 }

@@ -1,35 +1,49 @@
-<!-- <div style="max-height: 100%;">
-  <div id="feed-container" v-if="data">
-    <div v-if="!(data.isEditing)">
+<div class="container">
+  <div v-if="data">
+    <div class="section" style="padding: 1em;">
       <h1 style="display:inline-block; padding-right: 0em;">{{data.title}}</h1>
-      <p style="display:inline-block; padding-right: 0.5em;"
-         v-on:click="data.startEditing()">edit</p>
+      <b-button size="is-small" class="is-pulled-right" @click="startEditing()">edit</b-button>
+      <b-modal :active.sync="isEditing"
+                       has-modal-card
+                       trap-focus
+                       aria-role="dialog"
+                       aria-modal>
+         <div class="modal-card" style="width: auto">
+           <header class="modal-card-head">
+               <p class="modal-card-title">Edit feed</p>
+           </header>
+           <section class="modal-card-body">
+               <b-field label="Title">
+                   <b-input
+                       type="text"
+                       :value="title"
+                       placeholder="Custom title"
+                       required>
+                   </b-input>
+               </b-field>
+
+               <b-field label="URL">
+                   <b-input
+                       type="url"
+                       :value="url"
+                       placeholder="https://yourfav/rss"
+                       required>
+                   </b-input>
+               </b-field>
+           </section>
+           <footer class="modal-card-foot">
+               <button class="button" type="button" @click="isEditing = false">Cancel</button>
+               <button class="button is-danger" type="button" @click="deleteFeed()">Delete</button>
+               <button class="button is-primary" @click="saveEdits()">Save</button>
+           </footer>
+       </div>
+      </b-modal>
     </div>
-    <edit-feed v-else v-bind:data="data"></edit-feed>
-    <div id="feed-items">
-      <div class="feed-item-sep"></div>
-      <div v-for="item in data.items" v-on:click="item.openWebPage()"
-           class="feed-item">
-        <feed-item-short v-bind:data="item"></feed-item-short>
-        <div class="feed-item-sep"></div>
-      </div>
+    <div v-for="item in data.items" v-on:click="item.openWebPage()">
+      <feed-item-short v-bind:data="item"></feed-item-short>
     </div>
   </div>
   <div v-else>
     <p> . . . </p>
   </div>
-</div> -->
-<div class="container">
-  <div v-if="data">
-    <h1 style="display:inline-block; padding-right: 0em;">{{data.title}}</h1>
-    <b-button size="is-small" class="is-pulled-right" @click="data.startEditing()">edit</b-button>
-   <div>
-     <div v-for="item in data.items" v-on:click="item.openWebPage()">
-       <feed-item-short v-bind:data="item"></feed-item-short>
-     </div>
-   </div>
- </div>
- <div v-else>
-   <p> . . . </p>
- </div>
 </div>
