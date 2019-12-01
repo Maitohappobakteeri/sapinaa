@@ -1,5 +1,5 @@
 <div class="container">
-  <div v-if="data">
+  <div style="display: flex; flex-direction: column; height: 100%;" v-if="data">
     <div class="section" style="padding: 1em;">
       <h1 style="display:inline-block; padding-right: 0em;">{{data.title}}</h1>
       <b-button size="is-small" class="is-pulled-right" @click="startEditing()">edit</b-button>
@@ -39,8 +39,8 @@
        </div>
       </b-modal>
     </div>
-    <div v-for="item in data.items" v-on:click="item.openWebPage()">
-      <feed-item-short v-bind:data="item"></feed-item-short>
+    <div style="overflow: scroll;">
+        <feed-item-short v-for="item in data.items" v-on:click="item.openWebPage()" v-bind:data="item"></feed-item-short>
     </div>
   </div>
   <div v-else>

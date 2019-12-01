@@ -7,7 +7,7 @@
   <body>
     <div id="main">
       <h1 style="position: absolute; bottom: 1em; left: 1em;">{{Project.name}}-{{Project.version}}</h1>
-      <div style="display: flex; flex-direction: row;">
+      <div style="height: 100%; display: flex; flex-direction: row;">
         <feed-list v-bind:data="app.feeds"></feed-list>
         <feed style="flex: 1;" v-bind:data="app.current"></feed>
       </div>
