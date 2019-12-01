@@ -44,7 +44,7 @@ class Feed {
       }
 
       // Sort by descending date
-      let i = this.items.findIndex(item => newItem.pubDate >= this.items[i]);
+      let i = this.items.findIndex(item => newItem.pubDate >= item.pubDate);
       if (i === -1) { i = this.items.length; }
       this.items.insert(i, newItem);
     }
