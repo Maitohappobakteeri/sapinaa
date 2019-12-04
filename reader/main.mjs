@@ -15,6 +15,11 @@ import 'buefy/dist/buefy.css';
 
 Vue.use(Buefy);
 
+import feedlist from "./views/feed-list.vue";
+Vue.component("feed-list", feedlist);
+import feed from "./views/feed.vue";
+Vue.component("feed", feed);
+
 for (var comp in components) {
     if (Object.prototype.hasOwnProperty.call(components, comp)) {
       let componentScripts = {};
