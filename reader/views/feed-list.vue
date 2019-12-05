@@ -17,7 +17,7 @@
 <script>
 export default {
   methods: {
-    newFeed: () => {
+    newFeed() {
         this.$buefy.dialog.prompt({
             message: "URL for the new feed?",
             inputAttrs: {

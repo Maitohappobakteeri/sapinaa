@@ -62,7 +62,7 @@ export default {
       url: ""
   }),
   methods: {
-    startEditing: function() {
+    startEditing() {
       if (!(this.$props.data instanceof FeedUI)) {
         this.$buefy.dialog.alert({
             title: 'Not implemented for special feeds!',
@@ -76,14 +76,14 @@ export default {
       this.url = this.$props.data.feed.url;
     },
 
-    saveEdits: function() {
+    saveEdits() {
       this.$props.data.saveEdits({
         customTitle: this.title,
         url: this.url
       });
     },
 
-    deleteFeed: function() {
+    deleteFeed() {
       this.$buefy.dialog.confirm({
           message: "Delete " + this.$props.data.title,
           confirmText: 'Delete',
