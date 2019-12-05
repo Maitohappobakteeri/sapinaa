@@ -1,8 +1,11 @@
-import { FeedItemUI } from "./feed-item-ui.mjs";
-import { Actions } from "./actions.mjs";
-import { createSortedDerivedArray } from "../data/derived-array.mjs";
+import { FeedItemUI } from "./feed-item-ui";
+import { Actions } from "./actions";
+import { createSortedDerivedArray } from "../data/derived-array";
 
 export class ComboFeedUI {
+  title: string;
+  items: any;
+
   constructor(title, feeds) {
     this.title = title;
 
@@ -11,10 +14,6 @@ export class ComboFeedUI {
       (item, next) => item.item.pubDate >= next.item.pubDate,
       (arr, item) => true
     );
-
-    this.isEditing = false;
-    this.edits = {};
-    this.resetEdits();
   }
 
   async activate() {
@@ -35,25 +34,6 @@ export class ComboFeedUI {
 
   deactivate() {
     //this.isActive = false;
-  }
-
-  startEditing() {
-    alert("Not implemented");
-    //this.isEditing = true;
-    //this.resetEdits();
-  }
-
-  saveEdits() {
-    this.isEditing = false;
-    Actions.saveFeeds();
-  }
-
-  resetEdits() {
-  }
-
-  deleteFeed() {
-    alert("Not implemented");
-    //Actions.deleteFeed(this);
   }
 
   needsRefresh() {

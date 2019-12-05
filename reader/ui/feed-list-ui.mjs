@@ -2,7 +2,7 @@ import { Feed } from "../data/feed.mjs";
 import { FeedUI } from "./feed-ui.mjs";
 import { Storage } from "../storage.mjs";
 import { sleep } from "../utility/async.mjs";
-import { ComboFeedUI } from "./combo-feed-ui.mjs";
+import { ComboFeedUI } from "./combo-feed-ui.ts";
 
 export class FeedListUI {
   constructor() {

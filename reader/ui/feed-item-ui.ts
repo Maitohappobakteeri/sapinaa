@@ -1,6 +1,8 @@
-import { Actions } from "./actions.mjs";
+import { Actions } from "./actions";
 
 export class FeedItemUI {
+  item: any;
+
   constructor(feedItem) {
     this.item = feedItem;
   }
@@ -14,7 +16,7 @@ export class FeedItemUI {
   }
 
   get timeSincePublish() {
-    return Math.floor((new Date(Date.now()) - this.item.pubDate) / (1000 * 60 * 60)) + "h";
+    return Math.floor((Date.now() - this.item.pubDate.getTime()) / (1000 * 60 * 60)) + "h";
   }
 
   openWebPage() {

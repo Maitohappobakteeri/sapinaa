@@ -1,4 +1,4 @@
-import { FeedItemUI } from "./feed-item-ui.mjs";
+import { FeedItemUI } from "./feed-item-ui.ts";
 import { Actions } from "./actions.mjs";
 
 export class FeedUI {
