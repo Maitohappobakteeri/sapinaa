@@ -16,24 +16,6 @@ Vue.component("feed-list", feedlist);
 import feed from "./views/feed.vue";
 Vue.component("feed", feed);
 
-for (var comp in components) {
-    if (Object.prototype.hasOwnProperty.call(components, comp)) {
-      let componentScripts = {};
-      if (comp in componentsJS) {
-        let scripts = componentsJS[comp];
-        console.log("Registering scripts for vue component: ", comp);
-        componentScripts.data = scripts["data"];
-        componentScripts.methods = scripts["methods"];
-        componentScripts.created = scripts["created"];
-      }
-
-      Vue.component(comp, Object.assign({
-        props: ["data"],
-        template: components[comp],
-      }, componentScripts));
-    }
-}
-
 Vue.mixin({
   data: function() {
     return {
