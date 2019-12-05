@@ -1,9 +1,5 @@
 import * as Project from "./project.mjs";
 import { Storage } from "./storage.mjs";
-
-import components from "./views/**/*.html";
-import componentsJS from "./views/**/*.js";
-
 import { FeedListUI } from "./ui/feed-list-ui.mjs";
 import { AppUI } from "./ui/app-ui.mjs";
 import { Transitions } from "./ui/transitions.mjs";
