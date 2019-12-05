@@ -16,7 +16,7 @@
 // TODO: This whole file is just confusing!!!
 //
 
-export function createSourceArray(arr) {
+export function createSourceArray(arr=undefined) {
   arr = arr && arr.slice(0) || [];
   arr.derivedArrays = [];
   arr.push = function(item) {

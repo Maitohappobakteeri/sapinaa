@@ -1,10 +1,21 @@
-import * as Project from "~/project.mjs";
-import { FeedItem } from "./feed-item.mjs";
-import { parseXML } from "../communication/xml-query.mjs";
-import { Storage } from "../storage.ts";
-import { createSourceArray } from "./derived-array.mjs";
+import * as Project from "../project";
+import { FeedItem } from "./feed-item";
+import { parseXML } from "../communication/xml-query";
+import { Storage } from "../storage";
+import { createSourceArray } from "./derived-array";
 
 class Feed {
+    uid: number;
+    customTitle: string|undefined;
+    url: string;
+
+    items = createSourceArray();
+    title = "New Feed";
+    lastFetched: Date|null = null;
+
+    lastCached = new Date(Date.now());
+    cacheCounter = 0;
+
     constructor(config) {
       this.uid = config.uid;
       this.customTitle = config.customTitle;
@@ -106,7 +117,7 @@ class Feed {
 
       Storage.save(this.feedItemCacheNameFor(this.cacheCounter), newItems);
 
-      if (new Date(Date.now()) - this.lastCached > 6 * 60 * 60 * 1000) {
+      if ((Date.now() - this.lastCached.getTime()) > 6 * 60 * 60 * 1000) {
         this.cacheCounter += 1;
         this.lastCached = new Date(Date.now());
       }

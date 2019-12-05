@@ -1,4 +1,4 @@
-import * as Project from "./project.mjs";
+import * as Project from "./project.ts";
 import { Storage } from "./storage.ts";
 import { FeedListUI } from "./ui/feed-list-ui.ts";
 import { AppUI } from "./ui/app-ui.ts";
