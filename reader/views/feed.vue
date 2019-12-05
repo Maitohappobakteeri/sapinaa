@@ -1,8 +1,8 @@
 <template>
   <div class="container">
-    <div style="display: flex; flex-direction: column; height: 100%;" v-if="data">
+    <div style="display: flex; flex-direction: column; height: 100%;" v-if="feed">
       <div class="section" style="padding: 1em;">
-        <h1 style="display:inline-block; padding-right: 0em;">{{data.title}}</h1>
+        <h1 style="display:inline-block; padding-right: 0em;">{{feed.title}}</h1>
         <b-button size="is-small" class="is-pulled-right" @click="startEditing()">edit</b-button>
         <b-modal :active.sync="isEditing"
                          has-modal-card
@@ -41,7 +41,7 @@
         </b-modal>
       </div>
       <div style="overflow: scroll;">
-          <feed-item-short v-for="item in data.items" v-bind:data="item"></feed-item-short>
+          <feed-item-short v-for="item in feed.items" v-bind:item="item"></feed-item-short>
       </div>
     </div>
     <div v-else>
@@ -52,8 +52,6 @@
 
 <script>
 import FeedItemShort from "./feed-item-short.vue";
-
-import { FeedUI } from "../ui/feed-ui";
 
 export default {
   data: () => ({
@@ -92,7 +90,7 @@ export default {
       });
     }
   },
-  props: ["data"],
+  props: ["feed"],
   components: {
     FeedItemShort
   }

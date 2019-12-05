@@ -1,16 +1,16 @@
 <template>
-  <article @click="data.openWebPage()" class="message is-dark">
+  <article @click="item.openWebPage()" class="message is-dark">
     <div class="message-header">
-      <p>{{data.headline}}</p>
-      <p class="is-pulled-right">{{data.timeSincePublish}}</p>
+      <p>{{item.headline}}</p>
+      <p class="is-pulled-right">{{item.timeSincePublish}}</p>
     </div>
     <div class="message-body">
-      <p>{{data.description}}</p>
+      <p>{{item.description}}</p>
     </div>
   </article>
 </template>
 <script>
 export default {
-  props: ["data"]
+  props: ["item"]
 };
 </script>
