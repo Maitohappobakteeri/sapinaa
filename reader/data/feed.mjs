@@ -1,7 +1,7 @@
 import * as Project from "~/project.mjs";
 import { FeedItem } from "./feed-item.mjs";
 import { parseXML } from "../communication/xml-query.mjs";
-import { Storage } from "../storage.mjs";
+import { Storage } from "../storage.ts";
 import { createSourceArray } from "./derived-array.mjs";
 
 class Feed {

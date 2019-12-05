@@ -1,10 +1,14 @@
-import { TransitionEmitter } from "./transitions.mjs";
-import { ActionEmitter } from "./actions.mjs";
-import { Storage } from "../storage.mjs";
-import { Feed } from "../data/feed.mjs";
-import { loop } from "../utility/async.mjs";
+import { TransitionEmitter } from "./transitions";
+import { ActionEmitter } from "./actions";
+import { Storage } from "../storage";
+import { Feed } from "../data/feed";
+import { FeedListUI } from "./feed-list-ui";
+import { loop } from "../utility/async";
 
 export class AppUI {
+  current: Feed;
+  feeds: FeedListUI;
+
   constructor(feedList) {
     this.current = null;
     this.feeds = feedList;

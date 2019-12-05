@@ -1,8 +1,8 @@
 import * as Project from "./project.mjs";
-import { Storage } from "./storage.mjs";
-import { FeedListUI } from "./ui/feed-list-ui.mjs";
-import { AppUI } from "./ui/app-ui.mjs";
-import { Transitions } from "./ui/transitions.mjs";
+import { Storage } from "./storage.ts";
+import { FeedListUI } from "./ui/feed-list-ui.ts";
+import { AppUI } from "./ui/app-ui.ts";
+import { Transitions } from "./ui/transitions.ts";
 
 import "babel-polyfill";
 let Vue = require("vue/dist/vue.js");

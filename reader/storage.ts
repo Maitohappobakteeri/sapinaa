@@ -19,7 +19,7 @@ ipcRenderer.on('asynchronous-reply', function(event, args) {
 
 
 export const Storage = {
-  load: function(name) {
+  load: function(name): Promise<any> {
     return new Promise(function(resolve, reject) {
       loading.push({name: name, resolve: resolve, reject: reject});
       ipcRenderer.send('asynchronous-message', {

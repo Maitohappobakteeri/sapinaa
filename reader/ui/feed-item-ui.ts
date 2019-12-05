@@ -1,10 +1,11 @@
 import { Actions } from "./actions";
+import { FeedItem } from "../data/feed-item";
 
 export class FeedItemUI {
-  item: any;
+  item: FeedItem;
 
-  constructor(feedItem) {
-    this.item = feedItem;
+  constructor(item: FeedItem) {
+    this.item = item;
   }
 
   get headline() {

@@ -1,12 +1,16 @@
-import { FeedItemUI } from "./feed-item-ui.ts";
-import { Actions } from "./actions.mjs";
+import { FeedItemUI } from "./feed-item-ui";
+import { Actions } from "./actions";
+import { Feed } from "../data/feed";
 
 export class FeedUI {
+  feed: Feed;
+  isActive: boolean;
+  items: FeedItemUI[];
+
   constructor(feed) {
     this.feed = feed;
     this.isActive = false;
     this.items = feed.items.deriveArray(item => new FeedItemUI(item));
-    this.isEditing = false;
   }
 
   get title() {
@@ -33,10 +37,6 @@ export class FeedUI {
     Actions.deleteFeed(this);
   }
 
-  startEditing() {
-    this.isEditing = true;
-  }
-
   editFeed(edits) {
     assignIfDef(this.feed, edits, "customTitle");
     assignIfDef(this.feed, edits, "url");
@@ -45,7 +45,7 @@ export class FeedUI {
 
   needsRefresh() {
     return this.feed.lastFetched === null
-        || new Date(Date.now()) - this.feed.lastFetched > 10 * 60 * 1000;
+        || (Date.now() - this.feed.lastFetched.getTime()) > 10 * 60 * 1000;
   }
 }
 

@@ -11,6 +11,7 @@
   "author": "",
   "license": "MIT",
   "dependencies": {
+    "@types/node": "^12.12.14",
     "babel-polyfill": "^6.26.0",
     "buefy": "^0.8.8",
     "node-fetch": "^2.6.0",

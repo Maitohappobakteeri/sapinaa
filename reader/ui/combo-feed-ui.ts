@@ -4,9 +4,9 @@ import { createSortedDerivedArray } from "../data/derived-array";
 
 export class ComboFeedUI {
   title: string;
-  items: any;
+  items: FeedItemUI[];
 
-  constructor(title, feeds) {
+  constructor(title) {
     this.title = title;
 
     this.items = createSortedDerivedArray(

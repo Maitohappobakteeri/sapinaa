@@ -1,10 +1,14 @@
-import { Feed } from "../data/feed.mjs";
-import { FeedUI } from "./feed-ui.mjs";
-import { Storage } from "../storage.mjs";
-import { sleep } from "../utility/async.mjs";
-import { ComboFeedUI } from "./combo-feed-ui.ts";
+import { Feed } from "../data/feed";
+import { FeedUI } from "./feed-ui";
+import { Storage } from "../storage";
+import { sleep } from "../utility/async";
+import { ComboFeedUI } from "./combo-feed-ui";
 
 export class FeedListUI {
+  allCombo: ComboFeedUI;
+  feeds:  FeedUI[];
+  nextUID: number|undefined;
+
   constructor() {
     this.allCombo = new ComboFeedUI("All");
     this.feeds = [];
