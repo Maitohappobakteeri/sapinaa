@@ -2,7 +2,7 @@ const ipcRenderer = window.require("electron").ipcRenderer;
 
 let loading = [];
 
-function takePromise(fileName) {
+function takePromise(fileName: string) {
   let promise = loading.filter(l => l.name === fileName)[0];
   if (promise !== undefined) {
     loading = loading.filter(l => l.name !== fileName);
@@ -10,7 +10,7 @@ function takePromise(fileName) {
   return promise;
 }
 
-ipcRenderer.on("asynchronous-reply", function(event, args) {
+ipcRenderer.on("asynchronous-reply", function(_event: any, args: any) {
   if (args.action === "load") {
     let promise = takePromise(args.name);
     promise.resolve(args.data);
@@ -18,7 +18,14 @@ ipcRenderer.on("asynchronous-reply", function(event, args) {
 });
 
 export const Storage = {
-  load: function(name): Promise<any> {
+  load: function(name: string): Promise<any> {
+    setTimeout(function() {
+      let promise = takePromise(name);
+      if (promise !== undefined) {
+        promise.reject();
+      }
+    }, 30 * 1000);
+
     return new Promise(function(resolve, reject) {
       loading.push({ name: name, resolve: resolve, reject: reject });
       ipcRenderer.send("asynchronous-message", {
@@ -26,15 +33,9 @@ export const Storage = {
         name: name
       });
     });
-
-    setTimeout(function() {
-      let promise = takePromise(name);
-      if (promise !== undefined) {
-        promise.reject();
-      }
-    }, 30 * 1000);
   },
-  save: function(name, data) {
+
+  save: function(name: string, data: any) {
     ipcRenderer.send("asynchronous-message", {
       action: "save",
       name: name,

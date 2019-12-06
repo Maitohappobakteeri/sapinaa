@@ -48,7 +48,7 @@ export class FeedListUI {
     );
   }
 
-  async newFeed(newUrl) {
+  async newFeed(newUrl: string) {
     let feed = new Feed({
       uid: this.getNextUID(),
       url: newUrl
@@ -57,7 +57,7 @@ export class FeedListUI {
     this.saveFeeds();
   }
 
-  async addFeed(feed) {
+  async addFeed(feed: Feed) {
     if (feed.uid === undefined) {
       feed.uid = this.getNextUID();
     }
@@ -68,20 +68,20 @@ export class FeedListUI {
     this.allCombo.onFeedAdded(feed);
   }
 
-  deleteFeed(feed) {
+  deleteFeed(feed: FeedUI) {
     this.feeds = this.feeds.filter(f => f !== feed);
     this.saveFeeds();
 
     this.allCombo.onFeedDeleted(feed);
   }
 
-  async activateFeed(feed) {
+  async activateFeed(feed: FeedUI | ComboFeedUI) {
     console.log("Activating feed", feed.title);
     this.feeds.filter(f => f !== feed).forEach(f => f.deactivate());
     await feed.activate();
   }
 
-  get defaultFeed() {
+  get defaultFeed(): FeedUI | ComboFeedUI {
     return this.allCombo;
   }
 

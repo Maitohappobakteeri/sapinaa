@@ -1,16 +1,19 @@
 import { FeedItemUI } from "./feed-item-ui";
 import { Actions } from "./actions";
 import { Feed } from "../data/feed";
+import { FeedItem } from "../data/feed-item";
 
 export class FeedUI {
   feed: Feed;
   isActive: boolean;
   items: FeedItemUI[];
 
-  constructor(feed) {
+  constructor(feed: Feed) {
     this.feed = feed;
     this.isActive = false;
-    this.items = feed.items.deriveArray(item => new FeedItemUI(item));
+    this.items = feed.items.deriveArray(
+      (item: FeedItem) => new FeedItemUI(item)
+    );
   }
 
   get title() {
@@ -37,7 +40,7 @@ export class FeedUI {
     Actions.deleteFeed(this);
   }
 
-  editFeed(edits) {
+  editFeed(edits: any) {
     assignIfDef(this.feed, edits, "customTitle");
     assignIfDef(this.feed, edits, "url");
     Actions.saveFeeds();
@@ -51,7 +54,7 @@ export class FeedUI {
   }
 }
 
-function assignIfDef(dst, propSource, prop) {
+function assignIfDef(dst: any, propSource: any, prop: string) {
   if (prop in propSource) {
     dst[prop] = propSource[prop];
   }

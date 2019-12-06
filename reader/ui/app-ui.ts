@@ -2,25 +2,27 @@ import { TransitionEmitter } from "./transitions";
 import { ActionEmitter } from "./actions";
 import { Storage } from "../storage";
 import { Feed } from "../data/feed";
+import { FeedUI } from "./feed-ui";
 import { FeedListUI } from "./feed-list-ui";
+import { ComboFeedUI } from "./combo-feed-ui";
 
 import { interval } from "rxjs";
 import { startWith } from "rxjs/operators";
 
 export class AppUI {
-  current: Feed;
+  current: FeedUI | ComboFeedUI;
   feeds: FeedListUI;
 
-  constructor(feedList) {
+  constructor(feedList: FeedListUI) {
     this.current = null;
     this.feeds = feedList;
   }
 
-  async addFeed(feed) {
+  async addFeed(feed: Feed) {
     await this.feeds.addFeed(feed);
   }
 
-  async activateFeed(feed) {
+  async activateFeed(feed: FeedUI | ComboFeedUI) {
     this.current = feed;
     await this.feeds.activateFeed(feed);
   }
@@ -49,7 +51,7 @@ export class AppUI {
       }
     });
 
-    ActionEmitter.on("action", (target, options) => {
+    ActionEmitter.on("action", (target, _options) => {
       if (target == "save") {
         this.feeds.saveFeeds();
       }

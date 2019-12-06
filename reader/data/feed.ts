@@ -16,7 +16,7 @@ class Feed {
   lastCached = new Date(Date.now());
   cacheCounter = 0;
 
-  constructor(config) {
+  constructor(config: any) {
     this.uid = config.uid;
     this.customTitle = config.customTitle;
     this.url = config.url;
@@ -44,9 +44,9 @@ class Feed {
     cachedItems.forEach(i => this.addItem(i));
   }
 
-  addItem(newItem) {
+  addItem(newItem: FeedItem) {
     // Skip duplicates
-    if (this.items.some(i => i.guid === newItem.guid)) {
+    if (this.items.some((newItem: FeedItem) => i.guid === newItem.guid)) {
       return;
     }
 
@@ -55,7 +55,9 @@ class Feed {
     }
 
     // Sort by descending date
-    let i = this.items.findIndex(item => newItem.pubDate >= item.pubDate);
+    let i = this.items.findIndex(
+      (item: FeedItem) => newItem.pubDate >= item.pubDate
+    );
     if (i === -1) {
       i = this.items.length;
     }
@@ -66,7 +68,7 @@ class Feed {
     let response = await this.fetch();
     this.lastFetched = new Date(Date.now());
 
-    response.items.forEach(i => this.addItem(i));
+    response.items.forEach((i: FeedItem) => this.addItem(i));
     this.title = response.title;
 
     this.writeCache();
@@ -81,7 +83,7 @@ class Feed {
     } else {
       let emptyResponse = {
         title: this.title,
-        items: []
+        items: new Array<FeedItem>()
       };
       return emptyResponse;
     }
@@ -89,7 +91,7 @@ class Feed {
 
   async readCache() {
     // TODO: Clean this
-    let data = [];
+    let data: FeedItem[] = [];
     let cCounter = this.cacheCounter;
     for (; cCounter >= 0; cCounter--) {
       let cache = await Storage.load(this.feedItemCacheNameFor(cCounter));
@@ -111,7 +113,9 @@ class Feed {
       cacheCounter: this.cacheCounter
     });
 
-    let newItems = this.items.filter(i => i.cacheCounter === this.cacheCounter);
+    let newItems = this.items.filter(
+      (i: FeedItem) => i.cacheCounter === this.cacheCounter
+    );
 
     Storage.save(this.feedItemCacheNameFor(this.cacheCounter), newItems);
 
@@ -125,19 +129,19 @@ class Feed {
     return "feedCache/" + this.uid + "-cached-info.json";
   }
 
-  feedItemCacheNameFor(cacheCounter) {
+  feedItemCacheNameFor(cacheCounter: number) {
     return "feedCache/" + this.uid + "-" + cacheCounter + "-feed-cache.json";
   }
 }
 
-function parseRSSResponse(xmlString) {
+function parseRSSResponse(xmlString: string) {
   let xml = parseXML(xmlString);
 
   let items = xml
     .firstWithName("rss")
     .firstWithName("channel")
     .elementsWithName("item")
-    .map(e => parseFeedItem(e));
+    .map((e: any) => parseFeedItem(e));
 
   let title = xml
     .firstWithName("rss")
@@ -151,7 +155,7 @@ function parseRSSResponse(xmlString) {
   };
 }
 
-function parseFeedItem(e) {
+function parseFeedItem(e: any) {
   let item = new FeedItem();
   item.headline = e.firstWithName("title").firstWithType("text").text;
   item.description = e.firstWithName("description").firstWithType("text").text;

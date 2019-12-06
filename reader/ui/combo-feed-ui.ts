@@ -1,18 +1,21 @@
 import { FeedItemUI } from "./feed-item-ui";
-import { Actions } from "./actions";
 import { createSortedDerivedArray } from "../data/derived-array";
+import { FeedItem } from "../data/feed-item";
+import { FeedUI } from "./feed-ui";
+import { Feed } from "../data/feed";
 
 export class ComboFeedUI {
   title: string;
   items: FeedItemUI[];
 
-  constructor(title) {
+  constructor(title: string) {
     this.title = title;
 
     this.items = createSortedDerivedArray(
-      item => new FeedItemUI(item),
-      (item, next) => item.item.pubDate >= next.item.pubDate,
-      (arr, item) => true
+      (item: FeedItem) => new FeedItemUI(item),
+      (item: FeedItemUI, next: FeedItemUI) =>
+        item.item.pubDate >= next.item.pubDate,
+      (_arr: FeedItemUI[], _item: FeedItemUI) => true
     );
   }
 
@@ -20,15 +23,15 @@ export class ComboFeedUI {
     //this.isActive = true;
   }
 
-  onFeedAdded(feed) {
+  onFeedAdded(feed: Feed) {
     feed.items.registerSortedArray(this.items);
   }
 
-  onFeedDeleted(feed) {
+  onFeedDeleted(feed: FeedUI) {
     console.log("TODO: Unregister sorted array");
   }
 
-  async refresh(feeds) {}
+  async refresh(feeds: FeedUI[]) {}
 
   deactivate() {
     //this.isActive = false;
