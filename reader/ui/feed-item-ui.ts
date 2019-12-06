@@ -17,7 +17,16 @@ export class FeedItemUI {
   }
 
   get timeSincePublish() {
-    return Math.floor((Date.now() - this.item.pubDate.getTime()) / (1000 * 60 * 60)) + "h";
+    let  diff = Date.now() - this.item.pubDate.getTime();
+    let hours = Math.floor(diff / (1000 * 60 * 60));
+    let minutes = Math.floor(diff / (1000 * 60)) % 60;
+
+    if (hours !== 0) {
+      return hours + "h";
+    }
+    else {
+      return minutes + "min";
+    }
   }
 
   openWebPage() {
