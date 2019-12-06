@@ -44,8 +44,10 @@ export class FeedUI {
   }
 
   needsRefresh() {
-    return this.feed.lastFetched === null
-        || (Date.now() - this.feed.lastFetched.getTime()) > 10 * 60 * 1000;
+    return (
+      this.feed.lastFetched === null ||
+      Date.now() - this.feed.lastFetched.getTime() > 10 * 60 * 1000
+    );
   }
 }
 

@@ -17,14 +17,13 @@ export class FeedItemUI {
   }
 
   get timeSincePublish() {
-    let  diff = Date.now() - this.item.pubDate.getTime();
+    let diff = Date.now() - this.item.pubDate.getTime();
     let hours = Math.floor(diff / (1000 * 60 * 60));
     let minutes = Math.floor(diff / (1000 * 60)) % 60;
 
     if (hours !== 0) {
       return hours + "h";
-    }
-    else {
+    } else {
       return minutes + "min";
     }
   }
@@ -33,4 +32,4 @@ export class FeedItemUI {
     console.log("Opening feed item in browser", this.item.link);
     Actions.openUrl(this.item.link);
   }
-};
+}

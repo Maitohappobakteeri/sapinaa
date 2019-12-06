@@ -6,8 +6,8 @@ import { ComboFeedUI } from "./combo-feed-ui";
 
 export class FeedListUI {
   allCombo: ComboFeedUI;
-  feeds:  FeedUI[];
-  nextUID: number|undefined;
+  feeds: FeedUI[];
+  nextUID: number | undefined;
 
   constructor() {
     this.allCombo = new ComboFeedUI("All");
@@ -24,24 +24,28 @@ export class FeedListUI {
 
   lazyRefresh() {
     console.log("Refreshing feeds");
-    setImmediate((async function() {
-      for (let f of this.feeds) {
-        if (f.needsRefresh()) {
-          f.refresh();
+    setImmediate(
+      async function() {
+        for (let f of this.feeds) {
+          if (f.needsRefresh()) {
+            f.refresh();
+          }
+          await sleep(500);
         }
-        await sleep(500);
-      }
-    }).bind(this));
+      }.bind(this)
+    );
   }
 
   forceRefresh() {
     console.log("Force refreshing feeds");
-    setImmediate((async function() {
-      for (let f of this.feeds) {
-        f.refresh();
-        await sleep(500);
-      }
-    }).bind(this));
+    setImmediate(
+      async function() {
+        for (let f of this.feeds) {
+          f.refresh();
+          await sleep(500);
+        }
+      }.bind(this)
+    );
   }
 
   async newFeed(newUrl) {
@@ -82,11 +86,16 @@ export class FeedListUI {
   }
 
   saveFeeds() {
-    let compactFeeds =  this.feeds
+    let compactFeeds = this.feeds
       .map(f => f.feed)
-      .map(f => {return {
-        uid: f.uid, title: f.customTitle, url: f.url, lastFetched: f.lastFetched
-      };});
-    Storage.save("feeds.json", {nextUID: this.nextUID, feeds: compactFeeds});
+      .map(f => {
+        return {
+          uid: f.uid,
+          title: f.customTitle,
+          url: f.url,
+          lastFetched: f.lastFetched
+        };
+      });
+    Storage.save("feeds.json", { nextUID: this.nextUID, feeds: compactFeeds });
   }
 }

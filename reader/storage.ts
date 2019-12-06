@@ -10,19 +10,18 @@ function takePromise(fileName) {
   return promise;
 }
 
-ipcRenderer.on('asynchronous-reply', function(event, args) {
+ipcRenderer.on("asynchronous-reply", function(event, args) {
   if (args.action === "load") {
     let promise = takePromise(args.name);
     promise.resolve(args.data);
   }
 });
 
-
 export const Storage = {
   load: function(name): Promise<any> {
     return new Promise(function(resolve, reject) {
-      loading.push({name: name, resolve: resolve, reject: reject});
-      ipcRenderer.send('asynchronous-message', {
+      loading.push({ name: name, resolve: resolve, reject: reject });
+      ipcRenderer.send("asynchronous-message", {
         action: "load",
         name: name
       });
@@ -36,7 +35,7 @@ export const Storage = {
     }, 30 * 1000);
   },
   save: function(name, data) {
-    ipcRenderer.send('asynchronous-message', {
+    ipcRenderer.send("asynchronous-message", {
       action: "save",
       name: name,
       data: data

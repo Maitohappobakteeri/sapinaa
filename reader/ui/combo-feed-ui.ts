@@ -28,9 +28,7 @@ export class ComboFeedUI {
     console.log("TODO: Unregister sorted array");
   }
 
-  async refresh(feeds) {
-
-  }
+  async refresh(feeds) {}
 
   deactivate() {
     //this.isActive = false;

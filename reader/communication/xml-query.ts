@@ -1,4 +1,4 @@
-var convert = require('xml-js');
+var convert = require("xml-js");
 
 // Parse XML to JSON and wrap it in query functions
 function parseXML(xml) {
@@ -32,9 +32,7 @@ function wrapXML(xmlObj) {
       return wrapXML([]);
     }
 
-    return xmlObj.elements
-      .filter(e => e.name == name)
-      .map(e => wrapXML(e));
+    return xmlObj.elements.filter(e => e.name == name).map(e => wrapXML(e));
   };
 
   return xmlObj;

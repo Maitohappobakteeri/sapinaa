@@ -6,8 +6,8 @@ import { Transitions } from "./ui/transitions.ts";
 
 import "babel-polyfill";
 let Vue = require("vue/dist/vue.js");
-import Buefy from 'buefy';
-import 'buefy/dist/buefy.css';
+import Buefy from "buefy";
+import "buefy/dist/buefy.css";
 
 Vue.use(Buefy);
 
@@ -29,12 +29,10 @@ Vue.mixin({
   }
 });
 
-let ui = new AppUI(
-  new FeedListUI()
-);
+let ui = new AppUI(new FeedListUI());
 
 var vapp = new Vue({
-  el: '#main',
+  el: "#main",
   data: {
     app: ui
   }
