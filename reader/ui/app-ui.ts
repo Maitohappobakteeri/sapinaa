@@ -3,7 +3,10 @@ import { ActionEmitter } from "./actions";
 import { Storage } from "../storage";
 import { Feed } from "../data/feed";
 import { FeedListUI } from "./feed-list-ui";
-import { loop } from "../utility/async";
+
+import { interval } from "rxjs";
+import { startWith } from "rxjs/operators";
+
 
 export class AppUI {
   current: Feed;
@@ -24,7 +27,9 @@ export class AppUI {
   }
 
   startTimers() {
-    loop((() => this.feeds.lazyRefresh()).bind(this), 15 * 60 * 1000);
+    interval(15 * 60 * 1000).pipe(startWith(0)).subscribe((() => {
+      this.feeds.lazyRefresh()
+    }).bind(this));
   }
 
   async start() {

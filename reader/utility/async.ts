@@ -4,8 +4,3 @@ export async function sleep(timeMS) {
     setTimeout(resolve, timeMS);
   });
 }
-
-export async function loop(fun, timeBetweenLoops) {
-  fun();
-  setTimeout(fun, timeBetweenLoops);
-}
