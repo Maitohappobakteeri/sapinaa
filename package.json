@@ -6,7 +6,8 @@
   "scripts": {
     "dev": "electron .",
     "cache-requests": "node ./scripts/cache-requests.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "typecheck": "./node_modules/typescript/bin/tsc --noEmit"
   },
   "author": "",
   "license": "MIT",
