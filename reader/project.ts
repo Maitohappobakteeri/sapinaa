@@ -1,5 +1,7 @@
+import * as PKGJSON from "../package.json";
+
 export const name = "Säpinää";
-export const version = "0.0.2";
+export const version = PKGJSON.version;
 export const isDebug =
   typeof process !== 'undefined'
   && process.env.SAPINAA_DEBUG;

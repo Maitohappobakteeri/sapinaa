@@ -3,7 +3,4 @@
 set -euxo pipefail
 
 # Bundle client
-(
-  cd reader
-  parcel build main.html --public-url ./
-)
+parcel build "$1" --public-url ./

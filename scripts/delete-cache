@@ -2,4 +2,4 @@
 
 set -euxo pipefail
 
-rm -Rf "$HOME/".config/sapinaa/feedCache
+rm -Rf "$HOME/".config/sapinaa-dev/feedCache

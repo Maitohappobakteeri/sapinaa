@@ -4,7 +4,7 @@ set -euxo pipefail
 
 export SAPINAA_DEBUG=1
 
-./scripts/bundle
+./scripts/bundle "reader/main.html"
 
 # Start electron
 exec npm run dev
