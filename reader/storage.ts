@@ -1,6 +1,12 @@
 const ipcRenderer = window.require("electron").ipcRenderer;
 
-let loading = [];
+type PendingLoad = {
+  name: string;
+  resolve: (value?: any) => void;
+  reject: (value?: any) => void;
+};
+
+let loading: PendingLoad[] = [];
 
 function takePromise(fileName: string) {
   let promise = loading.filter(l => l.name === fileName)[0];
@@ -13,6 +19,10 @@ function takePromise(fileName: string) {
 ipcRenderer.on("asynchronous-reply", function(_event: any, args: any) {
   if (args.action === "load") {
     let promise = takePromise(args.name);
+    if (args.data === undefined || args.data === null) {
+      promise.reject();
+    }
+
     promise.resolve(args.data);
   }
 });
