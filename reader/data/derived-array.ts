@@ -1,4 +1,4 @@
-import { Subject, of } from "rxjs";
+import { Subject } from "rxjs";
 import { filter, flatMap, map } from "rxjs/operators";
 
 enum ChangeType {

@@ -24,7 +24,7 @@ export default {
                 placeholder: 'Https://yourfavsite.fi/rss'
             },
             trapFocus: true,
-            onConfirm: (value) => this.$props.data.newFeed(value)
+            onConfirm: (value) => this.$props.feedList.newFeed(value)
         });
     }
   },
