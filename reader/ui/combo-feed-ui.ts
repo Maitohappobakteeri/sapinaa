@@ -1,22 +1,22 @@
 import { FeedItemUI } from "./feed-item-ui";
-import { createSortedDerivedArray } from "../data/derived-array";
-import { FeedItem } from "../data/feed-item";
+import { SourceArray } from "../data/derived-array";
 import { FeedUI } from "./feed-ui";
 import { Feed } from "../data/feed";
 
 export class ComboFeedUI {
   title: string;
-  items: FeedItemUI[];
+  _items: SourceArray<FeedItemUI>;
 
   constructor(title: string) {
     this.title = title;
 
-    this.items = createSortedDerivedArray(
-      (item: FeedItem) => new FeedItemUI(item),
-      (item: FeedItemUI, next: FeedItemUI) =>
-        item.item.pubDate >= next.item.pubDate,
-      (_arr: FeedItemUI[], _item: FeedItemUI) => true
+    this._items = new SourceArray<FeedItemUI>(
+      (item, next) => item.item.pubDate >= next.item.pubDate
     );
+  }
+
+  get items() {
+    return this._items.array;
   }
 
   async activate() {
@@ -24,7 +24,7 @@ export class ComboFeedUI {
   }
 
   onFeedAdded(feed: Feed) {
-    feed.items.registerSortedArray(this.items);
+    feed.items.subscribeWith(this._items, e => new FeedItemUI(e));
   }
 
   onFeedDeleted(feed: FeedUI) {

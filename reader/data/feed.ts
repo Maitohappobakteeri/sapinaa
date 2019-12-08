@@ -2,14 +2,20 @@ import * as Project from "../project";
 import { FeedItem } from "./feed-item";
 import { parseXML } from "../communication/xml-query";
 import { Storage } from "../storage";
-import { createSourceArray } from "./derived-array";
+import { SourceArray } from "./derived-array";
 
 class Feed {
   uid: number;
   customTitle: string | undefined;
   url: string;
 
-  items = createSourceArray();
+  items = new SourceArray<FeedItem>(
+    (item, next) => item.pubDate >= next.pubDate,
+    function(this: SourceArray<FeedItem>, item) {
+      return this.array.some(other => item.guid === other.guid);
+    }
+  );
+
   title = "New Feed";
   lastFetched: Date | null = null;
 
@@ -21,7 +27,6 @@ class Feed {
     this.customTitle = config.customTitle;
     this.url = config.url;
 
-    this.items = createSourceArray();
     this.title = "New Feed";
     this.lastFetched = null;
 
@@ -45,23 +50,11 @@ class Feed {
   }
 
   addItem(newItem: FeedItem) {
-    // Skip duplicates
-    if (this.items.some((newItem: FeedItem) => i.guid === newItem.guid)) {
-      return;
-    }
-
     if (newItem.cacheCounter === null) {
       newItem.cacheCounter = this.cacheCounter;
     }
 
-    // Sort by descending date
-    let i = this.items.findIndex(
-      (item: FeedItem) => newItem.pubDate >= item.pubDate
-    );
-    if (i === -1) {
-      i = this.items.length;
-    }
-    this.items.insert(i, newItem);
+    this.items.pushSorted(newItem);
   }
 
   async refresh() {
@@ -113,7 +106,7 @@ class Feed {
       cacheCounter: this.cacheCounter
     });
 
-    let newItems = this.items.filter(
+    let newItems = this.items.array.filter(
       (i: FeedItem) => i.cacheCounter === this.cacheCounter
     );
 

@@ -19,10 +19,6 @@ function takePromise(fileName: string) {
 ipcRenderer.on("asynchronous-reply", function(_event: any, args: any) {
   if (args.action === "load") {
     let promise = takePromise(args.name);
-    if (args.data === undefined || args.data === null) {
-      promise.reject();
-    }
-
     promise.resolve(args.data);
   }
 });
