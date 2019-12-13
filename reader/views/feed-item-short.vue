@@ -4,7 +4,7 @@
       <p>{{item.headline}}</p>
       <p class="is-pulled-right">{{item.timeSincePublish}}</p>
     </div>
-    <div class="message-body">
+    <div v-if="item.description" class="message-body">
       <p>{{item.description}}</p>
     </div>
   </article>
