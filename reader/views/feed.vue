@@ -1,7 +1,7 @@
 <template>
   <div class="container">
     <div style="display: flex; flex-direction: column; height: 100%;" v-if="feed">
-      <div class="section" style="padding: 1em;">
+      <div id="topbarDiv" class="section" style="padding: 1em;">
         <h1 style="display:inline-block; padding-right: 0em;">{{feed.title}}</h1>
         <b-button size="is-small" class="is-pulled-right" @click="startEditing()">edit</b-button>
         <b-modal :active.sync="isEditing"
@@ -50,8 +50,17 @@
   </div>
 </template>
 
+<style lang="scss">
+@import "styles/custom-buefy-theme.scss";
+#topbarDiv {
+  background-color: $sidebar-color;
+  border: solid;
+}
+</style>
+
 <script>
 import FeedItemShort from "./feed-item-short.vue";
+import { FeedUI } from "../ui/feed-ui.ts";
 
 export default {
   data: () => ({
@@ -61,7 +70,7 @@ export default {
   }),
   methods: {
     startEditing() {
-      if (!(this.$props.data instanceof FeedUI)) {
+      if (!(this.$props.feed instanceof FeedUI)) {
         this.$buefy.dialog.alert({
             title: 'Not implemented for special feeds!',
             type: "is-warning"
@@ -70,15 +79,16 @@ export default {
       }
 
       this.isEditing = true;
-      this.title = this.$props.data.title;
-      this.url = this.$props.data.feed.url;
+      this.title = this.$props.feed.title;
+      this.url = this.$props.feed.feed.url;
     },
 
     saveEdits() {
-      this.$props.data.saveEdits({
+      this.$props.feed.editFeed({
         customTitle: this.title,
         url: this.url
       });
+      this.$props.feed.isEditing = false;
     },
 
     deleteFeed() {
@@ -86,7 +96,7 @@ export default {
           message: "Delete " + this.$props.data.title,
           confirmText: 'Delete',
           type: 'is-danger',
-          onConfirm: (value) => this.$props.data.deleteFeed()
+          onConfirm: (value) => this.$props.feed.deleteFeed()
       });
     }
   },
